@@ -1,0 +1,11 @@
+{
+	"InstallScripts" : 
+	[
+		"C:/assimp-master/Build/cmake_install.cmake",
+		"C:/assimp-master/Build/contrib/zlib/cmake_install.cmake",
+		"C:/assimp-master/Build/code/cmake_install.cmake",
+		"C:/assimp-master/Build/test/cmake_install.cmake",
+		"C:/assimp-master/Build/test/headercheck/cmake_install.cmake"
+	],
+	"Parallel" : false
+}
