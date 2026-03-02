@@ -1,82 +1,6 @@
 #include "pch.h"
 #include "MeshRenderer.h"
 
-void MeshRenderer::InitRenderData()
-{
-    float vertices[] = {
-		// Position and texture coords
-        // Front face 
-        -1,-1, 1,  0,0,
-         1,-1, 1,  1,0,
-         1, 1, 1,  1,1,
-
-         1, 1, 1,  1,1,
-        -1, 1, 1,  0,1,
-        -1,-1, 1,  0,0,
-
-        // Back face 
-         1,-1,-1,  0,0,
-        -1,-1,-1,  1,0,
-        -1, 1,-1,  1,1,
-
-        -1, 1,-1,  1,1,
-         1, 1,-1,  0,1,
-         1,-1,-1,  0,0,
-
-         // Left face 
-         -1,-1,-1,  0,0,
-         -1,-1, 1,  1,0,
-         -1, 1, 1,  1,1,
-
-         -1, 1, 1,  1,1,
-         -1, 1,-1,  0,1,
-         -1,-1,-1,  0,0,
-
-         // Right face 
-          1,-1, 1,  0,0,
-          1,-1,-1,  1,0,
-          1, 1,-1,  1,1,
-
-          1, 1,-1,  1,1,
-          1, 1, 1,  0,1,
-          1,-1, 1,  0,0,
-
-          // Top face 
-          -1, 1, 1,  0,0,
-           1, 1, 1,  1,0,
-           1, 1,-1,  1,1,
-
-           1, 1,-1,  1,1,
-          -1, 1,-1,  0,1,
-          -1, 1, 1,  0,0,
-
-          // Bottom face 
-          -1,-1,-1,  0,0,
-           1,-1,-1,  1,0,
-           1,-1, 1,  1,1,
-
-           1,-1, 1,  1,1,
-          -1,-1, 1,  0,1,
-          -1,-1,-1,  0,0
-    };
-
-    glGenVertexArrays(1, &this->VAO);
-    glGenBuffers(1, &this->VBO);
-
-    glBindVertexArray(this->VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, this->VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-
-	glEnableVertexAttribArray(1);
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-
-    glBindBuffer(GL_ARRAY_BUFFER, 0);
-    glBindVertexArray(0);
-}
-
 MeshRenderer::MeshRenderer()
 	: VAO(0), VBO(0), Width(0), Height(0)
 {
@@ -85,7 +9,7 @@ MeshRenderer::MeshRenderer()
 MeshRenderer::MeshRenderer(Shader&& shader, unsigned int width, unsigned int height)
 	: shader(std::move(shader)), Width(width), Height(height), VAO(0), VBO(0)
 {
-	this->InitRenderData();
+	//this->InitRenderData();
 }
 
 MeshRenderer::~MeshRenderer()
@@ -136,13 +60,18 @@ MeshRenderer& MeshRenderer::operator=(MeshRenderer&& other) noexcept
     return *this;
 }
 
-void MeshRenderer::DrawMesh()
+void MeshRenderer::SetView(const glm::mat4& view)
 {
-	this->shader.Use();
-	glBindVertexArray(this->VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
-	glBindVertexArray(0);
+    shader.Use();
+	shader.SetMatrix4("view", view);
 }
+
+void MeshRenderer::SetProjection(const glm::mat4& projection)
+{
+    shader.Use();
+	shader.SetMatrix4("projection", projection);
+}
+
 
 void MeshRenderer::Draw()
 {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -79,7 +79,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\OpenGL\Engine\Game Engine 1\Third Party\glm;D:\OpenGL\Engine\Game Engine 1\Third Party\GLFW\Include;D:\OpenGL\Engine\Game Engine 1\Third Party\glad\include;D:\OpenGL\Engine\Game Engine 1\Third Party\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include;$(SolutionDir)Third Party\assimp</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -98,7 +98,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\OpenGL\Engine\Game Engine 1\Third Party\glm;D:\OpenGL\Engine\Game Engine 1\Third Party\GLFW\Include;D:\OpenGL\Engine\Game Engine 1\Third Party\glad\include;D:\OpenGL\Engine\Game Engine 1\Third Party\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include;$(SolutionDir)Third Party\assimp</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -115,7 +115,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\OpenGL\Engine\Game Engine 1\Third Party\glm;D:\OpenGL\Engine\Game Engine 1\Third Party\GLFW\Include;D:\OpenGL\Engine\Game Engine 1\Third Party\glad\include;D:\OpenGL\Engine\Game Engine 1\Third Party\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include;$(SolutionDir)Third Party\assimp</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -134,7 +134,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>D:\OpenGL\Engine\Game Engine 1\Third Party\glm;D:\OpenGL\Engine\Game Engine 1\Third Party\GLFW\Include;D:\OpenGL\Engine\Game Engine 1\Third Party\glad\include;D:\OpenGL\Engine\Game Engine 1\Third Party\assimp\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include;$(SolutionDir)Third Party\assimp</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -144,6 +144,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cube.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="MeshRenderer.h" />
@@ -158,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cube.cpp" />
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="glad.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
@@ -179,6 +181,10 @@
     <ClCompile Include="stbi_image.cpp" />
     <ClCompile Include="Terrain.cpp" />
     <ClCompile Include="Texture.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Mesh_fs.txt" />
+    <Text Include="Mesh_vs.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

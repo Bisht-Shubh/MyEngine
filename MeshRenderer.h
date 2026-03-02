@@ -11,7 +11,7 @@
 
 class MeshRenderer
 {
-private:
+protected:
 	// Vertex attributes 
 	unsigned int VAO;
 	unsigned int VBO;
@@ -24,7 +24,7 @@ private:
 	glm::mat4 projection;
 
 	// Init Render data
-	void InitRenderData();
+	virtual void InitRenderData() = 0;
 
 public:
 	// Constructor
@@ -42,9 +42,12 @@ public:
 	MeshRenderer(MeshRenderer&& other) noexcept;
 	MeshRenderer& operator=(MeshRenderer&& other) noexcept;
 
+	void SetView(const glm::mat4& view);
+	void SetProjection(const glm::mat4& projection);
+
 	// Render mesh
-	void DrawMesh();
-	void Draw();
-	void Draw(Shader& shader, Texture& texture);
+	virtual void DrawMesh() = 0;
+	virtual void Draw();
+	virtual void Draw(Shader& shader, Texture& texture);
 };
 

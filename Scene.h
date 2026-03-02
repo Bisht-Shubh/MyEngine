@@ -2,6 +2,8 @@
 #include<iostream>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+#include "MeshRenderer.h"
+#include "Camera.h"
 
 class Scene
 {
@@ -32,6 +34,11 @@ public:
 	// Close application
 	bool ShouldClose(GLFWwindow* window);
 
+	// Rendering
+	MeshRenderer* Instantiate();
+
+	void SetCamera(Camera* cam);
+
 private:
 	// Frame timing
 	float deltaTime{ 0.0f };
@@ -42,7 +49,9 @@ private:
 	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
 
-	//static void mouseCallBack(GLFWwindow* window, double xPos, double yPos);
-	//void mouseMovement(float xOffset, float yOffset);
+	Camera* camera;
+
+	static void mouseCallBack(GLFWwindow* window, double xPos, double yPos);
+	void mouseMovement(float xOffset, float yOffset);
 };
 

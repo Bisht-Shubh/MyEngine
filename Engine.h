@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Scene.h"
+#include "Camera.h"
+#include "MeshRenderer.h"
 #include<memory>
 
 class Engine

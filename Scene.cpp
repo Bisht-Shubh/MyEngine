@@ -6,7 +6,10 @@
 #include "Shader.h"
 #include "Skybox.h"
 #include "Terrain.h"
+#include "Cube.h"
 
+MeshRenderer* gameObject;
+Cube* cube;
 
 Scene::Scene(unsigned int width, unsigned int height)
 	: Width(width), Height(height), Keys()
@@ -25,9 +28,14 @@ void Scene::Init()
     InitWindow();
 
     glfwSetWindowUserPointer(this->window, this);
-   // glfwSetCursorPosCallback(this->window, Scene::mouseCallBack);
+    glfwSetCursorPosCallback(this->window, Scene::mouseCallBack);
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
+	// Load shaders
+	ResourceManager::LoadShader("D:/OpenGL/My Engine/MyEngine/Mesh_vs.txt", "D:/OpenGL/My Engine/MyEngine/Mesh_fs.txt", nullptr, "cube");
+
+	// Initialize game objects
+	
 }
 
 void Scene::ProcessInput(float dt)
@@ -35,11 +43,40 @@ void Scene::ProcessInput(float dt)
 	if(this->Keys[GLFW_KEY_ESCAPE])
 		glfwSetWindowShouldClose(this->window, true);
 
+    // Camera controls
+
+        // Set Camera Constraints
+    glm::vec3 cameraPos = camera->GetCameraPos();
+    glm::vec3 cameraFront = camera->GetCameraFront();
+    glm::vec3 cameraUp = camera->GetCameraUp();
+    float cameraSpeed = camera->GetCameraSpeed();
+
+    // Move Forward
+    if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+        cameraPos += cameraSpeed * dt * cameraFront;
+
+    // Move Backward
+    if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+        cameraPos -= cameraSpeed * dt * cameraFront;
+
+    // Move Left
+    if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+        cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed * dt;
+
+    // Move Right
+    if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+        cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed * dt;
+
+    // Update Camera Position
+    camera->SetCameraPos(cameraPos);
+    camera->SetCameraFront(cameraFront);
+    camera->SetCameraUp(cameraUp);
 }
 
 void Scene::Update(float dt)
 {
-
+	std::cout << "\nDEBUG::CAMERA_POS: " << glm::to_string(camera->GetCameraPos());
+	std::cout << "\nDEBUG::CAMERA_FRONT: "   << glm::to_string(camera->GetCameraFront());
 }
 
 void Scene::Render()
@@ -48,6 +85,9 @@ void Scene::Render()
     glViewport(0, 0, Width, Height);
     glClearColor(0.5f, 0.7f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	cube->SetViewProjection(camera->GetView(), camera->GetProjection());
+    cube->DrawMesh();
 }
 
 void Scene::InitWindow()
@@ -93,6 +133,18 @@ bool Scene::ShouldClose(GLFWwindow* window)
 		return true;
 }
 
+MeshRenderer* Scene::Instantiate()
+{
+    cube = new Cube(std::move(ResourceManager::GetShader("cube")), Width, Height);
+
+    return cube;
+}
+
+void Scene::SetCamera(Camera* cam)
+{
+	camera = cam;
+}
+
 void Scene::framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
     glViewport(0, 0, width, height);
@@ -113,57 +165,55 @@ void Scene::key_callback(GLFWwindow* window, int key, int scancode, int action, 
     }
 }
 
-//struct mouseInput {
-//    double lastX = 1800.0f / 2.0f;
-//    double lastY = 1000.0f / 2.0f;
-//    bool firstMouse{ true };
-//    double xOffset{ 0.0f };
-//    double yOffset{ 0.0f };
-//} mouseInput;
-//
-//void Scene::mouseCallBack(GLFWwindow* window, double xPos, double yPos)
-//{
-//    Scene* scene = static_cast<Scene*>(glfwGetWindowUserPointer(window));
-//    Camera* camera = scene->camera;
-//    if (mouseInput.firstMouse)
-//    {
-//        mouseInput.lastX = xPos;
-//        mouseInput.lastY = yPos;
-//        mouseInput.firstMouse = false;
-//    }
-//
-//    mouseInput.xOffset = xPos - mouseInput.lastX;
-//    mouseInput.yOffset = mouseInput.lastY - yPos;
-//    mouseInput.lastX = xPos;
-//    mouseInput.lastY = yPos;
-//    scene->mouseMovement(mouseInput.xOffset, mouseInput.yOffset);
-//}
-//
-//void Scene::mouseMovement(float xOffset, float yOffset)
-//{
-//    static float yaw = -90.0f;
-//    static float pitch = 0.0f;
-//    float camSenstivity{ 0.1f };
-//
-//    xOffset *= camSenstivity;
-//    yOffset *= camSenstivity;
-//
-//    yaw += xOffset;
-//    pitch += yOffset;
-//
-//    if (pitch > 89.0f)
-//        pitch = 89.0f;
-//    if (pitch < -89.0f)
-//        pitch = -89.0f;
-//
-//    glm::vec3 direction;
-//    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-//    direction.y = sin(glm::radians(pitch));
-//    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-//    direction = glm::normalize(direction);
-//
-//    camera->SetCameraFront(direction);
-//
-//    ResourceManager::GetShader("Debug").SetMatrix4("view", camera->GetView(), true);
-//}
+struct mouseInput {
+    double lastX = 1800.0f / 2.0f;
+    double lastY = 1000.0f / 2.0f;
+    bool firstMouse{ true };
+    double xOffset{ 0.0f };
+    double yOffset{ 0.0f };
+} mouseInput;
+
+void Scene::mouseCallBack(GLFWwindow* window, double xPos, double yPos)
+{
+    Scene* scene = static_cast<Scene*>(glfwGetWindowUserPointer(window));
+    Camera* camera = scene->camera;
+    if (mouseInput.firstMouse)
+    {
+        mouseInput.lastX = xPos;
+        mouseInput.lastY = yPos;
+        mouseInput.firstMouse = false;
+    }
+
+    mouseInput.xOffset = xPos - mouseInput.lastX;
+    mouseInput.yOffset = mouseInput.lastY - yPos;
+    mouseInput.lastX = xPos;
+    mouseInput.lastY = yPos;
+    scene->mouseMovement(mouseInput.xOffset, mouseInput.yOffset);
+}
+
+void Scene::mouseMovement(float xOffset, float yOffset)
+{
+    static float yaw = -90.0f;
+    static float pitch = 0.0f;
+    float camSenstivity{ 0.1f };
+
+    xOffset *= camSenstivity;
+    yOffset *= camSenstivity;
+
+    yaw += xOffset;
+    pitch += yOffset;
+
+    if (pitch > 89.0f)
+        pitch = 89.0f;
+    if (pitch < -89.0f)
+        pitch = -89.0f;
+
+    glm::vec3 direction;
+    direction.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+    direction.y = sin(glm::radians(pitch));
+    direction.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+    direction = glm::normalize(direction);
+
+    camera->SetCameraFront(direction);
+}
 

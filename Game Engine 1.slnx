@@ -4,6 +4,6 @@
     <Platform Name="x64" />
     <Platform Name="x86" />
   </Configurations>
-  <Project Path="../Sandbox1/Sandbox1.vcxproj" Id="e1df2f31-dfa9-45c7-8f22-9177172d339f" />
+  <Project Path="ConsoleApplication1/ConsoleApplication1.vcxproj" Id="81b49651-3f14-4226-9eec-1046e9673abc" />
   <Project Path="Game Engine 1.vcxproj" Id="7b65cb12-b302-4f4b-aa25-9e352228a52c" />
 </Solution>

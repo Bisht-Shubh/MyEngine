@@ -5,12 +5,12 @@ void mouseCallBack(GLFWwindow* window, double xPos, double yPos);
 	
 void Camera::InitCamera()
 {
-	this->projection = glm::perspective(glm::radians(45.0f), (float)this->Width / (float)this->Height, 0.1f, 700.0f);
+	this->projection = glm::perspective(glm::radians(FOV), (float)this->Width / (float)this->Height, nearPlane, farPlane);
 	this->view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
 }
 
-Camera::Camera(unsigned int Width, unsigned int Height, GLFWwindow* window)
-	: Width(Width), Height(Height), window(window)
+Camera::Camera(unsigned int windowWidth, unsigned int windowHeight, float cameraFOV, GLFWwindow* window)
+	: Width(windowWidth), Height(windowHeight), FOV(cameraFOV), window(window)
 {
 	InitCamera();
 }
