@@ -17,8 +17,8 @@ protected:
 	unsigned int VBO;
 	unsigned int Width, Height;
 
-	// Shader
-	Shader shader;
+	// Shader (non-owning)
+	Shader* shader;
 
 	// Render data
 	glm::mat4 projection;
@@ -27,9 +27,17 @@ protected:
 	virtual void InitRenderData() = 0;
 
 public:
+	// Transformations
+	glm::vec3 position;
+	glm::vec3 rotation;
+	glm::vec3 scale;
+
+	// Set view and projection matrices
+	virtual void SetViewProjection(const glm::mat4& view, const glm::mat4& projection);
+
 	// Constructor
 	MeshRenderer();
-	MeshRenderer(Shader&& shader, unsigned int width, unsigned int height);
+	MeshRenderer(Shader& shader, unsigned int width, unsigned int height);
 
 	// Destructor
 	~MeshRenderer();

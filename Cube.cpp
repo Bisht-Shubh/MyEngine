@@ -2,35 +2,37 @@
 #include "Cube.h"
 
 Cube::Cube()
-    :MeshRenderer()
+	: MeshRenderer()
 {
 }
 
-Cube::Cube(Shader&& shader, unsigned int width, unsigned int height)
-	: MeshRenderer(std::move(shader), width, height)
+Cube::Cube(Shader& shader, unsigned int width, unsigned int height)
+	: MeshRenderer(shader, width, height)
 {
-    this->InitRenderData();
+	this->InitRenderData();
+	position = glm::vec3(0.0f, 0.0f, -4.0f);
+	rotation = glm::vec3(0.0f);
+	scale = glm::vec3(1.0f);
 }
 
 void Cube::DrawMesh()
 {
-    shader.Use();
+	if (!shader)
+		return;
 
-    glm::mat4 model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(0.0f, 0.0f, -4.0f));
-    model = glm::scale(model, glm::vec3(0.5f));
-    shader.SetMatrix4("model", model);
+	shader->Use();
 
-    //glm::mat4 view = glm::mat4(1.0f);  // Identity matrix (static "camera" at origin)
-    //shader.SetMatrix4("view", view);
+	glm::mat4 model = glm::mat4(1.0f);
+	model = glm::translate(model, position);
+	model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0f, 0.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0f, 1.0f, 0.0f));
+    model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::scale(model, scale);
+	shader->SetMatrix4("model", model);
 
-    //glm::mat4 projection = glm::perspective(glm::radians(45.0f),
-    //    (float)Width / (float)Height, 0.1f, 100.0f);
-    //shader.SetMatrix4("projection", projection);
-
-    glBindVertexArray(this->VAO);
-    glDrawArrays(GL_TRIANGLES, 0, 36);
-    glBindVertexArray(0);
+	glBindVertexArray(this->VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glBindVertexArray(0);
 }
 
 void Cube::SetViewProjection(const glm::mat4& view, const glm::mat4& projection)

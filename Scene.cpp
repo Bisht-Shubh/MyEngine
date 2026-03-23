@@ -9,6 +9,7 @@
 #include "Cube.h"
 
 MeshRenderer* gameObject;
+
 Cube* cube;
 
 Scene::Scene(unsigned int width, unsigned int height)
@@ -32,7 +33,7 @@ void Scene::Init()
     glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 
 	// Load shaders
-	ResourceManager::LoadShader("D:/OpenGL/My Engine/MyEngine/Mesh_vs.txt", "D:/OpenGL/My Engine/MyEngine/Mesh_fs.txt", nullptr, "cube");
+	ResourceManager::LoadShader("D:/OpenGL/MyEngine/Mesh_vs.txt", "D:/OpenGL/MyEngine/Mesh_fs.txt", nullptr, "cube");
 
 	// Initialize game objects
 	
@@ -75,8 +76,8 @@ void Scene::ProcessInput(float dt)
 
 void Scene::Update(float dt)
 {
-	std::cout << "\nDEBUG::CAMERA_POS: " << glm::to_string(camera->GetCameraPos());
-	std::cout << "\nDEBUG::CAMERA_FRONT: "   << glm::to_string(camera->GetCameraFront());
+    if (updateCallback)
+        updateCallback(*this, dt);
 }
 
 void Scene::Render()
@@ -86,8 +87,19 @@ void Scene::Render()
     glClearColor(0.5f, 0.7f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-	cube->SetViewProjection(camera->GetView(), camera->GetProjection());
-    cube->DrawMesh();
+	for (MeshRenderer* obj : gameObjects)
+    {
+        obj->SetViewProjection(camera->GetView(), camera->GetProjection());
+        obj->DrawMesh();
+    }
+
+	//cube->SetViewProjection(camera->GetView(), camera->GetProjection());
+    //cube->DrawMesh();
+}
+
+void Scene::SetUpdateCallback(UpdateCallback callback)
+{
+    updateCallback = std::move(callback);
 }
 
 void Scene::InitWindow()
@@ -133,10 +145,14 @@ bool Scene::ShouldClose(GLFWwindow* window)
 		return true;
 }
 
-MeshRenderer* Scene::Instantiate()
+// Add a new game object to the scene with each Instantiate call in main.cpp
+// TODO : Add functionality to specify which type of game object to instantiate (e.g. cube, sphere, cuboid, etc)
+// And remove return functionality
+Cube* Scene::Instantiate()
 {
-    cube = new Cube(std::move(ResourceManager::GetShader("cube")), Width, Height);
-
+	Shader& cubeShader = ResourceManager::GetShader("cube");
+    cube = new Cube(cubeShader, Width, Height);
+    gameObjects.push_back(cube);
     return cube;
 }
 

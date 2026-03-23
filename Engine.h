@@ -3,6 +3,7 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "MeshRenderer.h"
+#include "Cube.h"
 #include<memory>
 
 class Engine
