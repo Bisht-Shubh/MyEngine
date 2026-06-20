@@ -4,6 +4,9 @@
 #include "Camera.h"
 #include "MeshRenderer.h"
 #include "Cube.h"
+#include "DirectionalLight.h"
+#include "ResourceManager.h"
+
 #include<memory>
 
 class Engine

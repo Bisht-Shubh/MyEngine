@@ -37,7 +37,7 @@ private:
     ResourceManager() {}
 
     // loads and generates a shader from file
-    static Shader    loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile = nullptr);
+    static Shader    loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile = nullptr, std::string name = "");
 
     // loads a single texture from file
     static Texture loadTextureFromFile(const char* file, bool alpha);

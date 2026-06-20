@@ -1,8 +1,101 @@
-#version 410 core
+#version 330 core
 
 out vec4 FragColor;
 
+in VS_OUT
+{
+    vec3 FragPos;
+    vec3 Normal;
+    vec4 FragPosLightSpace;
+} fs_in;
+
+uniform sampler2D shadowMap;
+
+uniform vec3 materialColor;
+
+uniform vec3 viewPos;
+uniform vec3 lightDir;
+
+uniform vec3 lightAmbient;
+uniform vec3 lightDiffuse;
+uniform vec3 lightSpecular;
+
+const float shininess = 32.0;
+
+float ShadowCalculation(vec4 fragPosLightSpace)
+{
+    vec3 projCoords = fragPosLightSpace.xyz / fragPosLightSpace.w;
+    projCoords = projCoords * 0.5 + 0.5;
+
+    if(projCoords.x < 0.0 || projCoords.x > 1.0 ||
+       projCoords.y < 0.0 || projCoords.y > 1.0 ||
+       projCoords.z > 1.0)
+    {
+        return 0.0;
+    }
+
+    float closestDepth = texture(shadowMap, projCoords.xy).r;
+    float currentDepth = projCoords.z;
+
+    vec3 normal = normalize(fs_in.Normal);
+
+    float bias =
+        max(
+            0.01 * (1.0 - dot(normal, normalize(-lightDir))),
+            0.001
+        );
+
+    // Use a softer shadow factor (0.0 = fully lit, 1.0 = fully shadowed).
+    // Reducing the shadow strength to 0.6 preserves some diffuse/specular in shadowed areas.
+    float shadow =
+        currentDepth - bias > closestDepth
+        ? 0.6
+        : 0.0;
+
+    return shadow;
+}
+
 void main()
 {
-	FragColor = vec4(1.0, 1.0, 0.0, 1.0);
+    vec3 normal = normalize(fs_in.Normal);
+
+    vec3 lightDirection =
+        normalize(-lightDir);
+
+    // Ambient
+    vec3 ambient =
+        lightAmbient * materialColor;
+
+    // Diffuse
+    float diff =
+        max(dot(normal, lightDirection), 0.0);
+
+    vec3 diffuse =
+        diff * lightDiffuse * materialColor;
+
+    // Specular
+    vec3 viewDirection =
+        normalize(viewPos - fs_in.FragPos);
+
+    vec3 halfwayDir =
+        normalize(lightDirection + viewDirection);
+
+    float spec =
+        pow(
+            max(dot(normal, halfwayDir), 0.0),
+            shininess
+        );
+
+    vec3 specular =
+        spec * lightSpecular;
+
+    float shadow =
+        ShadowCalculation(fs_in.FragPosLightSpace);
+
+    vec3 result =
+        ambient +
+        (1.0 - shadow) * (diffuse + specular);
+
+    FragColor =
+        vec4(result, 1.0);
 }

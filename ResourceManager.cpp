@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
+#include<assert.h>
 
 #include "stbi_image.h"
 std::map<std::string, Texture>    ResourceManager::Textures;
@@ -11,7 +12,9 @@ std::map<std::string, Shader>       ResourceManager::Shaders;
 
 Shader& ResourceManager::LoadShader(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)
 {
-    Shaders[name] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile);
+    // load shader from the files
+    Shaders[name] = loadShaderFromFile(vShaderFile, fShaderFile, gShaderFile, name);
+
     return Shaders[name];
 }
 
@@ -43,7 +46,7 @@ void ResourceManager::Clear()
 	Textures.clear();
 }
 
-Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile)
+Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* fShaderFile, const char* gShaderFile, std::string name)
 {
     // 1. retrieve the vertex/fragment source code from filePath
     std::string vertexCode;
@@ -53,7 +56,25 @@ Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* 
     {
         // open files
         std::ifstream vertexShaderFile(vShaderFile);
+        // check if vertex shader file opens successfully 
+        if (!vertexShaderFile)
+        {
+            std::cerr << "\nERROR::SHADER::Failed to open vertex shader\n"
+                << "PATH::" << vShaderFile;
+
+            assert(false);
+        }
+
         std::ifstream fragmentShaderFile(fShaderFile);
+        // check if fragment shader file opens succesfully
+        if (!fragmentShaderFile)
+        {
+            std::cerr << "\nERROR::SHADER::Failed to open fragment shader\n"
+                << "PATH::" << fShaderFile;
+
+            assert(false);
+        }
+
         std::stringstream vShaderStream, fShaderStream;
         // read file's buffer contents into streams
         vShaderStream << vertexShaderFile.rdbuf();
@@ -76,7 +97,7 @@ Shader ResourceManager::loadShaderFromFile(const char* vShaderFile, const char* 
     }
     catch (std::exception e)
     {
-        std::cout << "ERROR::SHADER: Failed to read shader files" << std::endl;
+        std::cout << "ERROR::SHADER: Failed to read shader files::" << "SHADER_NAME::" << name << std::endl;
     }
     const char* vShaderCode = vertexCode.c_str();
     const char* fShaderCode = fragmentCode.c_str();

@@ -121,6 +121,8 @@ void Skybox::Draw(Shader& shader, const glm::mat4& view, const glm::mat4& projec
 	shader.SetMatrix4("view", viewNoTranslation);
 	shader.SetMatrix4("projection", projection);
 
+    shader.SetInteger("skybox", 0);
+
 	glBindVertexArray(skyboxVAO);
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);

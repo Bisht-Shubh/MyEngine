@@ -51,6 +51,16 @@ public:
 
 	void SetCamera(Camera* cam);
 
+	// Set directional light properties and add to scene
+	void SetDirectionalLight(const glm::vec3& direction, const glm::vec3& ambient, const glm::vec3& diffuse, const glm::vec3& specular);
+	
+	// Shadow mapping
+	unsigned int depthMapFBO;
+	unsigned int depthMap;
+	unsigned int SHADOW_WIDTH = 2560, SHADOW_HEIGHT = 2560;
+	void genDepthMap(unsigned int& depthMapFBO, unsigned int& depthMap, unsigned int SHADOW_WIDTH, unsigned int SHADOW_HEIGHT);
+	
+
 private:
 	UpdateCallback updateCallback;
 

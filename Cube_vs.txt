@@ -1,0 +1,11 @@
+// Vertex shader that uses AVCs for instance rendering
+
+in ivec4 in_positionAndType;		// per instance data
+out in v_type;
+
+void main()
+{
+	gl_position = vec4(in_positionAndType.xyz, 1.0);
+
+	v_type = in_positionAndType.z;
+}

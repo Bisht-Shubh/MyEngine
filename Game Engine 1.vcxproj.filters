@@ -34,6 +34,12 @@
     <Filter Include="Source Files\General">
       <UniqueIdentifier>{659ce07d-f037-47c0-88ca-99dd4647c562}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Lighting">
+      <UniqueIdentifier>{59e617e6-5600-4d4e-921e-3c81f1348431}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Lighting">
+      <UniqueIdentifier>{9c3d5e43-e0c6-4515-8b33-9b9e8d40850e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cube.h">
@@ -74,6 +80,18 @@
     </ClInclude>
     <ClInclude Include="stbi_image.h">
       <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Header Files\Lighting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -116,12 +134,36 @@
     <ClCompile Include="stbi_image.cpp">
       <Filter>Source Files\General</Filter>
     </ClCompile>
+    <ClCompile Include="Mesh.cpp">
+      <Filter>Source Files\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Model.cpp">
+      <Filter>Source Files\Meshes</Filter>
+    </ClCompile>
+    <ClCompile Include="Light.cpp">
+      <Filter>Source Files\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="DirectionalLight.cpp">
+      <Filter>Source Files\Lighting</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mesh_fs.txt">
       <Filter>Shader Programs</Filter>
     </Text>
     <Text Include="Mesh_vs.txt">
+      <Filter>Shader Programs</Filter>
+    </Text>
+    <Text Include="..\Project1\Project1\SkyBox_fs.txt">
+      <Filter>Shader Programs</Filter>
+    </Text>
+    <Text Include="..\Project1\Project1\SkyBox_vs.txt">
+      <Filter>Shader Programs</Filter>
+    </Text>
+    <Text Include="Depth_vs.txt">
+      <Filter>Shader Programs</Filter>
+    </Text>
+    <Text Include="Depth_fs.txt">
       <Filter>Shader Programs</Filter>
     </Text>
   </ItemGroup>
