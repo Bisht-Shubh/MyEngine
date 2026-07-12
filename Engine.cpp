@@ -3,28 +3,31 @@
 #include "pch.h"
 #include "Engine.h"
 
-Engine::Engine(unsigned int width, unsigned int height)
-	: currentScene(nullptr), deltaTime(0.0f), lastFrame(0.0f)
+
+Engine::Engine()
+	: m_input(), m_window(1500, 1200, m_input)
 {
-	currentScene = new Scene(width, height);
+	m_currentScene = std::make_unique<Scene>(m_window.GetWidth(), m_window.GetHeight(), m_input);
 }
 
 Engine::~Engine()
 {
-	delete currentScene;
+	m_currentScene.reset(nullptr);
 }
 
 void Engine::Init()
 {
-	currentScene->Init();
+	m_window.InitWindow();
+
+	m_currentScene->Init();
 }
 
 void Engine::Run()
 {
-	GLFWwindow* window = currentScene->GetWindow();
+	GLFWwindow* window = m_window.GetWindow();
 
 	// Game loop
-	while (!currentScene->ShouldClose(window))
+	while (!m_window.ShouldClose())
 	{
 		// Calculate delta time
 		float currentFrame = static_cast<float>(glfwGetTime());
@@ -32,13 +35,14 @@ void Engine::Run()
 		lastFrame = currentFrame;
 
 		// Process input
-		currentScene->ProcessInput(deltaTime);
 
 		// Update 
-		currentScene->Update(deltaTime);
+		m_window.Update();
+		m_cameraController.Update(deltaTime, m_currentScene->GetCamera(), m_input);
+		m_currentScene->Update(deltaTime);
 		
 		// Render
-		currentScene->Render();
+		m_currentScene->Render();
 
 		// Swap buffers and poll events
 		glfwSwapBuffers(window);
@@ -48,16 +52,16 @@ void Engine::Run()
 
 void Engine::LoadScene(Scene* newScene)
 {
-	if(currentScene)
-		delete currentScene;
+	if(m_currentScene)
+		m_currentScene.reset(nullptr);
 
-	currentScene = newScene;
-	currentScene->Init();
+	m_currentScene = std::make_unique<Scene>(newScene->Width, newScene->Height, m_input);
+	m_currentScene->Init();
 }
 
 Scene* Engine::GetCurrentScene() const
 {
-	return currentScene;
+	return m_currentScene.get();
 }
 
 

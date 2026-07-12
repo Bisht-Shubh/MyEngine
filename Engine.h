@@ -6,31 +6,34 @@
 #include "Cube.h"
 #include "DirectionalLight.h"
 #include "ResourceManager.h"
+#include "Window.h"
+#include "Input.h"
+#include "CameraController.h"
 
 #include<memory>
 
 class Engine
 {
 private:
-	Scene* currentScene;
+	std::unique_ptr<Scene> m_currentScene;
 	float deltaTime{ 0.0f };
 	float lastFrame{ 0.0f };
 
-public:
-	// Constructor
-	Engine(unsigned int width, unsigned int height);
+	Input m_input;
+	Window m_window;
+	CameraController m_cameraController;
 
-	// Destructor
+public:
+	Engine();
+
 	~Engine();
 
 	// Prevent copying and ensure move semantics
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
 
-	// Initialization
 	void Init();
 
-	// Main game loop
 	void Run();
 
 	// Scene management

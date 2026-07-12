@@ -9,6 +9,7 @@
 #include "MeshRenderer.h"
 #include "Cube.h"
 #include "Camera.h"
+#include "Input.h"
 
 class Scene
 {
@@ -17,13 +18,15 @@ public:
 	bool KeysProcessed[1024];
 	unsigned int Width, Height;
 
+	Camera* camera;
+
 	using UpdateCallback = std::function<void(Scene&, float)>;
 
 	std::vector<MeshRenderer*> gameObjects;
 
 	// Constructors
 	Scene();
-	Scene(unsigned int width, unsigned int height);
+	Scene(unsigned int width, unsigned int height, Input& input);
 
 	// Destructor
 	~Scene();
@@ -44,12 +47,13 @@ public:
 	GLFWwindow* GetWindow() const;
 
 	// Close application
-	bool ShouldClose(GLFWwindow* window);
+	//bool ShouldClose(GLFWwindow* window);
 
 	// Rendering
 	Cube* Instantiate();
 
 	void SetCamera(Camera* cam);
+	Camera& GetCamera();
 
 	// Set directional light properties and add to scene
 	void SetDirectionalLight(const glm::vec3& direction, const glm::vec3& ambient, const glm::vec3& diffuse, const glm::vec3& specular);
@@ -68,14 +72,6 @@ private:
 	float deltaTime{ 0.0f };
 	float lastFrame{ 0.0f };
 
-	// GLFW window and input
-	GLFWwindow* window;
-	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-	static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mode);
-
-	Camera* camera;
-
-	static void mouseCallBack(GLFWwindow* window, double xPos, double yPos);
-	void mouseMovement(float xOffset, float yOffset);
+	Input& input;
 };
 

@@ -14,14 +14,20 @@
 class Camera
 {
 private:
-	glm::vec3 cameraPos{ glm::vec3(0.0f, 0.0f, 0.0f) };
-	glm::vec3 cameraFront{ glm::vec3(0.0f, 0.0f, -1.0f) };
+	glm::vec3 cameraPos{ glm::vec3(0.0f, 10.0f, -20.0f) };
+	glm::vec3 cameraFront{ glm::vec3(0.0f, 0.0f, 1.0f) };
 	glm::vec3 cameraUp{ glm::vec3(0.0f, 1.0f, 0.0f) };
+	glm::vec3 cameraRight{ glm::normalize(glm::cross(cameraFront, cameraUp)) };
 	const float radius{ 10.0f };
 	const float cameraSpeed{ 12.5f };
 	const float FOV{ 45.0f };			// Set 45.0f as default FOV, can be changed in constructor
-	
-	GLFWwindow* window;
+	glm::vec3 worldUp{ 0.0f, 1.0f, 0.0f };
+
+	float yaw{ -90.0f };
+	float pitch{ 0.0f };
+	float mouseSensitivity{ 0.1f };
+
+	void UpdateCameraVectors();
 
 public:
 	unsigned int Width, Height;
@@ -39,8 +45,18 @@ public:
 	void InitCamera();
 
 	// Constructor
-	Camera(unsigned int windowWidth, unsigned int windowHeight, float cameraFOV, GLFWwindow* window);
+	Camera(unsigned int windowWidth, unsigned int windowHeight, float cameraFOV);
 	Camera();
+
+	void Rotate(float xOffset, float yOffset);
+	
+	// Update camera position based on input
+	void MoveForward(float deltaTime);
+	void MoveBackward(float deltaTime);
+	void MoveLeft(float deltaTime);
+	void MoveRight(float deltaTime);
+	void MoveUp(float deltaTime);
+	void MoveDown(float deltaTime);
 
 	// Getters
 	glm::mat4 GetView();

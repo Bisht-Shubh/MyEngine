@@ -40,6 +40,18 @@
     <Filter Include="Source Files\Lighting">
       <UniqueIdentifier>{9c3d5e43-e0c6-4515-8b33-9b9e8d40850e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Input and Window">
+      <UniqueIdentifier>{fb00043d-b3d9-4456-bb64-84a5a81d6558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Input and Window">
+      <UniqueIdentifier>{ad4e54d0-c15a-4ecb-8e95-25b5904a5c6c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Camera">
+      <UniqueIdentifier>{4265005b-1c30-4e6e-911a-21eb84773c90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Camera">
+      <UniqueIdentifier>{088017ed-c4f4-4eb5-9a01-395ee2f66078}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cube.h">
@@ -69,9 +81,6 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\General</Filter>
-    </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Header Files\General</Filter>
     </ClInclude>
@@ -92,6 +101,18 @@
     </ClInclude>
     <ClInclude Include="DirectionalLight.h">
       <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Header Files\Input and Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\Input and Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>Header Files\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -122,9 +143,6 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files\Resources</Filter>
     </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files\General</Filter>
-    </ClCompile>
     <ClCompile Include="Scene.cpp">
       <Filter>Source Files\General</Filter>
     </ClCompile>
@@ -145,6 +163,18 @@
     </ClCompile>
     <ClCompile Include="DirectionalLight.cpp">
       <Filter>Source Files\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>Source Files\Input and Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Source Files\Input and Window</Filter>
+    </ClCompile>
+    <ClCompile Include="CameraController.cpp">
+      <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Source Files\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

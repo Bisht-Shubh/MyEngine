@@ -14,10 +14,10 @@ class DirectionalLight : public Light
 {
 private:
 	// General directional light properties
-	glm::vec3 direction;
+	
 
 public:
-	
+	glm::vec3 direction;
 	// Constructor to initialize directional light properties
 	DirectionalLight(glm::vec3 dir, glm::vec3 amb, glm::vec3 diff, glm::vec3 spec);
 
