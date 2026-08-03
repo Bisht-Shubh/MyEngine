@@ -41,8 +41,8 @@ float ShadowCalculation(vec4 fragPosLightSpace)
 
     float bias =
         max(
-            0.01 * (1.0 - dot(normal, normalize(-lightDir))),
-            0.001
+            0.0005 * (1.0 - dot(normal, normalize(-lightDir))),
+            0.00005
         );
 
     // Use a softer shadow factor (0.0 = fully lit, 1.0 = fully shadowed).

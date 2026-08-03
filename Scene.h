@@ -10,6 +10,7 @@
 #include "Cube.h"
 #include "Camera.h"
 #include "Input.h"
+#include "Transform.h"
 
 class Scene
 {
@@ -35,20 +36,12 @@ public:
 	void Init();
 
 	// Game Loop
-	void ProcessInput(float dt);
 	void Update(float dt);
 	void Render();
 
 	// Client hooks
 	void SetUpdateCallback(UpdateCallback callback);
 	
-	// Get window
-	void InitWindow();
-	GLFWwindow* GetWindow() const;
-
-	// Close application
-	//bool ShouldClose(GLFWwindow* window);
-
 	// Rendering
 	Cube* Instantiate();
 
@@ -67,6 +60,8 @@ public:
 
 private:
 	UpdateCallback updateCallback;
+
+	Transform potTransform;
 
 	// Frame timing
 	float deltaTime{ 0.0f };

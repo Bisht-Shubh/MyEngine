@@ -14,7 +14,7 @@
 class Camera
 {
 private:
-	glm::vec3 cameraPos{ glm::vec3(0.0f, 10.0f, -20.0f) };
+	glm::vec3 cameraPos{ glm::vec3(0.0f, 10.0f, 30.0f) };
 	glm::vec3 cameraFront{ glm::vec3(0.0f, 0.0f, 1.0f) };
 	glm::vec3 cameraUp{ glm::vec3(0.0f, 1.0f, 0.0f) };
 	glm::vec3 cameraRight{ glm::normalize(glm::cross(cameraFront, cameraUp)) };
@@ -25,7 +25,7 @@ private:
 
 	float yaw{ -90.0f };
 	float pitch{ 0.0f };
-	float mouseSensitivity{ 0.1f };
+	float mouseSensitivity{ 0.3f };
 
 	void UpdateCameraVectors();
 

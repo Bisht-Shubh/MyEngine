@@ -18,10 +18,11 @@
 DirectionalLight* directionalLight;   // a directional light source, like sunlight, that illuminates all objects in the scene from a specific direction
 
 // MODELS
-Model* modelCar;           // load a model (e.g. .obj file) and render it in the scene
+Model* modelPot;           // load a model (e.g. .obj file) and render it in the scene
 Model* modelTree;          // load a model (e.g. .obj file) and render it in the scene
 
 Skybox* skybox;              // a cube that surrounds the entire scene and is textured with a skybox texture to create the illusion of distant surroundings
+
 
 
 Scene::Scene(unsigned int width, unsigned int height, Input& input)
@@ -82,9 +83,9 @@ void Scene::Init()
 
 
     // Load models
-	modelCar = new Model("D:/Assets/Blender Files/Table.obj");
+	modelPot = new Model("D:/Assets/Blender Files/Bouquet.obj");
 	modelTree = new Model("D:/Assets/Blender Files/Tree.obj");
-    std::cout << "DEBUG::ModelCar meshes: " << modelCar->meshes.size() << "\n";
+    std::cout << "DEBUG::ModelPot meshes: " << modelPot->meshes.size() << "\n";
     std::cout << "DEBUG::ModelTree meshes: " << modelTree->meshes.size() << "\n";
 
     // Generate depth map framebuffer/texture for shadow mapping
@@ -96,10 +97,10 @@ void Scene::Init()
 	skybox = new Skybox("D:/Assets/Textures/CubeMaps/skybox");
 
     // Set properties of light
-    glm::vec3 direction = glm::normalize(glm::vec3(1.3f, -1.0f, 2.5f));
+    glm::vec3 direction = glm::normalize(glm::vec3(1.3f, -0.8f, 2.5f));
     glm::vec3 diffuse = glm::vec3(2.0f, 1.9f, 1.98f);
-    glm::vec3 specular = glm::vec3(0.9, 0.7f, 0.5f);
-    glm::vec3 ambient = glm::vec3(0.25f, 0.25f, 0.22f);
+    glm::vec3 specular = glm::vec3(0.7f, 0.5f, 0.35f);
+    glm::vec3 ambient = glm::vec3(0.4f, 0.4f, 0.39f);
 
     // Set directional light properties and add to scene
     DirectionalLight* directionalLight = new DirectionalLight(direction, ambient, diffuse, specular);
@@ -111,12 +112,29 @@ void Scene::Init()
 //-------------------------------------------------------------------------------------------//
 
 
-void Scene::Update(float dt)
+void Scene::                             Update(float dt)
 {
-    if (updateCallback)
-        updateCallback(*this, dt);
+    float moveSpeed = 2.0f;
 
-    
+	if(input.IsKeyPressed(GLFW_KEY_I))
+	{
+		potTransform.Translate(0.0f, 0.0f, moveSpeed * dt);
+	}
+
+	if (input.IsKeyPressed(GLFW_KEY_K))
+	{
+		potTransform.Translate(0.0f, 0.0f, -moveSpeed * dt);
+	}
+
+	if (input.IsKeyPressed(GLFW_KEY_L))
+	{
+		potTransform.Translate(moveSpeed * dt, 0.0f, 0.0f);
+	}
+
+	if (input.IsKeyPressed(GLFW_KEY_J))
+	{
+		potTransform.Translate(-moveSpeed * dt, 0.0f, 0.0f);
+	}
 }
 
 void Scene::Render()
@@ -172,13 +190,19 @@ void Scene::Render()
     glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
     glClear(GL_DEPTH_BUFFER_BIT);
 
-    // Use distinct model matrices per object and keep them consistent between passes
-    glm::mat4 modelCarModel = glm::mat4(1.0f);
-    modelCarModel = glm::translate(modelCarModel, glm::vec3(-2.0f, -0.775f, -3.0f)); // Move the car back and down the z-axis
-	modelCarModel = glm::rotate(modelCarModel, glm::radians(-75.0f), glm::vec3(0.0f, 1.0f, 0.0f)); // Rotate the car to face forward
-    modelCarModel = glm::scale(modelCarModel, glm::vec3(0.25f)); // Scale down if needed
+    // Model matrices
+    
+    /*
+        Change position of put using inputs
+        Replace later with a transform class
+    */
+    glm::mat4 modelPotModel = glm::mat4(1.0f);
+    modelPotModel = glm::scale(modelPotModel, glm::vec3(0.5f)); // Scale down if needed
 
-    ResourceManager::GetShader("depth").Use().SetMatrix4("model", modelCarModel);
+	potTransform.SetScale(glm::vec3(0.5f));
+
+    ResourceManager::GetShader("depth").Use().SetMatrix4("model", potTransform.GetModelMatrix());
+	modelPot->Draw(ResourceManager::GetShader("depth"));
 
     glm::mat4 modelTreeModel = glm::mat4(1.0f);
     modelTreeModel = glm::translate(modelTreeModel, glm::vec3(0.0f, 0.0f, -3.0f)); // Move the tree back on z-axis
@@ -207,8 +231,8 @@ void Scene::Render()
 	glBindTexture(GL_TEXTURE_2D, depthMap);
 
     // Render from camera using the exact same model matrices used for the depth pass
-    ResourceManager::GetShader("cube").Use().SetMatrix4("model", modelCarModel);
-    //modelCar->Draw(ResourceManager::GetShader("cube"));
+    ResourceManager::GetShader("cube").Use().SetMatrix4("model", potTransform.GetModelMatrix());
+    modelPot->Draw(ResourceManager::GetShader("cube"));
 
     ResourceManager::GetShader("cube").Use().SetMatrix4("model", modelTreeModel);
     modelTree->Draw(ResourceManager::GetShader("cube"));

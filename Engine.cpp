@@ -5,7 +5,7 @@
 
 
 Engine::Engine()
-	: m_input(), m_window(1500, 1200, m_input)
+	: m_input(), m_window(1000, 1200, m_input)
 {
 	m_currentScene = std::make_unique<Scene>(m_window.GetWidth(), m_window.GetHeight(), m_input);
 }
@@ -29,6 +29,7 @@ void Engine::Run()
 	// Game loop
 	while (!m_window.ShouldClose())
 	{
+		glfwPollEvents();
 		// Calculate delta time
 		float currentFrame = static_cast<float>(glfwGetTime());
 		deltaTime = currentFrame - lastFrame;
@@ -46,7 +47,7 @@ void Engine::Run()
 
 		// Swap buffers and poll events
 		glfwSwapBuffers(window);
-		glfwPollEvents();
+		
 	}
 }
 

@@ -114,6 +114,9 @@
     <ClInclude Include="CameraController.h">
       <Filter>Header Files\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files\Input and Window</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -175,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Source Files\Input and Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
