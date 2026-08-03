@@ -5,7 +5,7 @@
 
 
 Engine::Engine()
-	: m_input(), m_window(1000, 1200, m_input)
+	: m_input(), m_window(1400, 1200, m_input)
 {
 	m_currentScene = std::make_unique<Scene>(m_window.GetWidth(), m_window.GetHeight(), m_input);
 }

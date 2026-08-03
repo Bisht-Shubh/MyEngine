@@ -13,5 +13,7 @@ public:
 	
 	virtual void SetPosition(const glm::vec3& pos);
 	void SetIntensity(float intensity);
+	
+	virtual void ApplyLight(Shader& shader) const override;
 };
 
