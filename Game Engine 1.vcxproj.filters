@@ -118,6 +118,9 @@
       <Filter>Header Files\Input and Window</Filter>
     </ClInclude>
     <ClInclude Include="PointLight.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLight.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -188,6 +191,9 @@
     <ClCompile Include="PointLight.cpp">
       <Filter>Source Files\Lighting</Filter>
     </ClCompile>
+    <ClCompile Include="SpotLight.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mesh_fs.txt">
@@ -212,6 +218,12 @@
       <Filter>Shader Programs</Filter>
     </Text>
     <Text Include="PointLightTest_fs.txt">
+      <Filter>Shader Programs</Filter>
+    </Text>
+    <Text Include="SpotLight_vs.txt">
+      <Filter>Shader Programs</Filter>
+    </Text>
+    <Text Include="SpotLight_fs.txt">
       <Filter>Shader Programs</Filter>
     </Text>
   </ItemGroup>

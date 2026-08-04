@@ -12,20 +12,19 @@
 #include "DirectionalLight.h"
 #include "Window.h"
 #include "PointLight.h"
+#include "SpotLight.h"
 
 #include<chrono>
 
 // LIGHTING
-PointLight* pointLight;
+SpotLight* spotLight;
 
 // MODELS
-Model* Table;
+Model* Car;
 
 Scene::Scene(unsigned int width, unsigned int height, Input& input)
-	: Width(width), Height(height), Keys(), input(input)  
-{
-
-}
+    : Width(width), Height(height), Keys(), input(input)
+{}
 
 Scene::~Scene()
 {
@@ -46,7 +45,7 @@ void Scene::Init()
     //-------------------------------------------------------------------------------------------//
 	//---------------------LOAD SHADERS AND PRINT LOAD TIME TO CONSOLE---------------------------//
 	//-------------------------------------------------------------------------------------------//
-	ResourceManager::LoadShader("D:/OpenGL/MyEngine/PointLightTest_vs.txt", "D:/OpenGL/MyEngine/PointLightTest_fs.txt", nullptr, "PointLight");
+	ResourceManager::LoadShader("D:/OpenGL/MyEngine/SpotLight_vs.txt", "D:/OpenGL/MyEngine/SpotLight_fs.txt", nullptr, "SpotLight");
 
     auto end = std::chrono::high_resolution_clock::now();       // END LOAD TIME
 
@@ -70,18 +69,21 @@ void Scene::Init()
     std::cout << ss.str();
 
     // Load models
-	Table = new Model("D:/Assets/Blender Files/LowPolyTree.obj");
-    std::cout << "DEBUG::Table meshes: " << Table->meshes.size() << "\n";
+	Car = new Model("D:/Assets/Blender Files/Low Poly Car.obj");
+    std::cout << "DEBUG::Car meshes: " << Car->meshes.size() << "\n";
 
 
     // Set properties of light
-    glm::vec3 diffuse = glm::vec3(2.0f, 1.9f, 1.98f);
-    glm::vec3 specular = glm::vec3(0.7f, 0.5f, 0.35f);
-    glm::vec3 ambient = glm::vec3(0.4f, 0.4f, 0.39f);
-	glm::vec3 pos = glm::vec3(0.0f, 9.0f, 0.0f);
-	float intensity = 3.0f;
+    glm::vec3 diffuse = glm::vec3(1.5f, 1.5f, 1.5f);
+    glm::vec3 specular = glm::vec3(0.6f, 0.6f, 0.6f);
+    glm::vec3 ambient = glm::vec3(0.8f, 0.8f, 0.8f);
+	glm::vec3 pos = glm::vec3(0.0f, 13.0f, 0.0f);
+	glm::vec3 dir = glm::vec3(0.0f, -1.0f, 0.0f);
+	float innerAngle = 12.5f;  // degrees
+	float outerAngle = 17.5f;  // degrees
 
-	pointLight = new PointLight(ambient, diffuse, specular, pos, intensity);
+	spotLight = new SpotLight(ambient, diffuse, specular, pos, dir, innerAngle, outerAngle);
+	spotLight->SetIntensity(2.6f);
 }
 
 //-------------------------------------------------------------------------------------------//
@@ -103,38 +105,18 @@ void Scene::Render()
 
 	glm::mat4 model = glm::mat4(1.0f);
 	model = glm::translate(model, glm::vec3(0.0f, 0.0f, 0.0f));
-	model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
-	ResourceManager::GetShader("PointLight").Use().SetMatrix4("model", model);
-	ResourceManager::GetShader("PointLight").Use().SetVector3f("viewPos", camera->GetCameraPos());
-    if (pointLight == nullptr)
+	ResourceManager::GetShader("SpotLight").Use().SetMatrix4("model", model);
+	ResourceManager::GetShader("SpotLight").Use().SetVector3f("viewPos", camera->GetCameraPos());
+    if (spotLight == nullptr)
     {
-        std::cerr << "Error: pointLight is a null pointer. Make sure it is initialized before calling Render()." << std::endl;
+        std::cerr << "Error: spotLight is a null pointer. Make sure it is initialized before calling Render()." << std::endl;
         return;
     }
-	pointLight->ApplyLight(ResourceManager::GetShader("PointLight").Use());
+	spotLight->ApplyLight(ResourceManager::GetShader("SpotLight").Use());
     
-	ResourceManager::GetShader("PointLight").Use().SetMatrix4("projection", camera->GetProjection());
-	ResourceManager::GetShader("PointLight").Use().SetMatrix4("view", camera->GetView());
-	Table->Draw(ResourceManager::GetShader("PointLight"));
-
-	model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(7.0f, 9.0f, 0.0f));
-    model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
-    ResourceManager::GetShader("PointLight").Use().SetMatrix4("model", model);
-	Table->Draw(ResourceManager::GetShader("PointLight"));
-
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(-8.0f, 11.0f, 0.0f));
-    model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
-	model = glm::rotate(model, glm::radians(30.0f), glm::vec3(0.0f, 0.0f, 1.0f));
-    ResourceManager::GetShader("PointLight").Use().SetMatrix4("model", model);
-	Table->Draw(ResourceManager::GetShader("PointLight"));
-
-    model = glm::mat4(1.0f);
-    model = glm::translate(model, glm::vec3(0.0f, 14.0f, 0.0f));
-    model = glm::scale(model, glm::vec3(1.5f, 1.5f, 1.5f));
-    ResourceManager::GetShader("PointLight").Use().SetMatrix4("model", model);
-    Table->Draw(ResourceManager::GetShader("PointLight"));
+	ResourceManager::GetShader("SpotLight").Use().SetMatrix4("projection", camera->GetProjection());
+	ResourceManager::GetShader("SpotLight").Use().SetMatrix4("view", camera->GetView());
+	Car->Draw(ResourceManager::GetShader("SpotLight"));
 }
 
 void Scene::SetUpdateCallback(UpdateCallback callback)

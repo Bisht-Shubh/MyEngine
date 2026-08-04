@@ -1,5 +1,15 @@
 #version 330 core
 
+//WORK ON THIS LATER
+/*#define MAX_POINT_LIGHTS 32
+#define MAX_SPOT_LIGHTS 16
+
+uniform int numPointLights;
+uniform PointLight pointLights[MAX_POINT_LIGHTS];
+
+uniform int numSpotLights;
+uniform SpotLight spotLights[MAX_SPOT_LIGHTS];*/
+
 // Point light properties
 struct PointLight {
 	vec3 position;
@@ -42,7 +52,7 @@ void main()
 	vec3 lightDir = normalize(pointLight.position - fs_in.FragPos);
 
 	// Ambient
-	vec3 ambient = pointLight.ambient * materialColor;
+	vec3 ambient = pointLight.ambient * materialColor * pointLight.intensity;
 
 	// Diffuse
 	float diff = max(dot(normal, lightDir), 0.0);
