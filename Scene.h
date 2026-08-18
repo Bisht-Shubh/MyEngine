@@ -5,12 +5,22 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-
+#include "ResourceManager.h"
 #include "MeshRenderer.h"
 #include "Cube.h"
 #include "Camera.h"
 #include "Input.h"
 #include "Transform.h"
+#include "Shader.h"
+#include "Skybox.h"
+#include "Terrain.h"
+#include "Texture.h"
+#include "Window.h"
+#include "Model.h"
+
+#include "PointLight.h"
+#include "SpotLight.h"
+#include "DirectionalLight.h"
 
 class Scene
 {
@@ -18,8 +28,6 @@ public:
 	bool Keys[1024];
 	bool KeysProcessed[1024];
 	unsigned int Width, Height;
-
-	Camera* camera;
 
 	using UpdateCallback = std::function<void(Scene&, float)>;
 
@@ -45,7 +53,7 @@ public:
 	// Rendering
 	Cube* Instantiate();
 
-	void SetCamera(Camera* cam);
+	void SetCamera(Camera cam);
 	Camera& GetCamera();
 
 	// Set directional light properties and add to scene
@@ -56,9 +64,20 @@ public:
 	unsigned int depthMap;
 	unsigned int SHADOW_WIDTH = 2560, SHADOW_HEIGHT = 2560;
 	void genDepthMap(unsigned int& depthMapFBO, unsigned int& depthMap, unsigned int SHADOW_WIDTH, unsigned int SHADOW_HEIGHT);
-	
 
 private:
+	// LOADING RESOURCES
+	// Lights
+	std::unique_ptr<SpotLight> spotLight;
+	std::unique_ptr<PointLight> pointLight;
+	std::unique_ptr<DirectionalLight> directionalLight;
+
+	// Models
+	std::unique_ptr<Model> Car;
+
+	//Camera
+	Camera camera;
+
 	UpdateCallback updateCallback;
 
 	Transform potTransform;

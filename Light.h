@@ -32,11 +32,12 @@ public:
 
 	// Constructor to initialize light properties
 	Light(glm::vec3 amb, glm::vec3 diff, glm::vec3 spec);
+	virtual ~Light() = default;  // Virtual destructor for proper cleanup of derived classes
 
 	// getters 
-	glm::vec3 GetAmbient(const glm::vec3& amb);
-	glm::vec3 GetDiffuse(const glm::vec3& diff);
-	glm::vec3 GetSpecular(const glm::vec3& spec);
+	glm::vec3 GetAmbient() const;
+	glm::vec3 GetDiffuse() const;
+	glm::vec3 GetSpecular() const;
 
 	// setters
 	void SetAmbient(const glm::vec3& amb);

@@ -4,17 +4,17 @@
 Light::Light(glm::vec3 amb, glm::vec3 diff, glm::vec3 spec)
 	: ambient(amb), diffuse(diff), specular(spec) {}
 
-glm::vec3 Light::GetAmbient(const glm::vec3& amb)
+glm::vec3 Light::GetAmbient() const
 {
 	return ambient;
 }
 
-glm::vec3 Light::GetDiffuse(const glm::vec3& diff)
+glm::vec3 Light::GetDiffuse() const
 {
 	return diffuse;
 }
 
-glm::vec3 Light::GetSpecular(const glm::vec3& spec)
+glm::vec3 Light::GetSpecular() const
 {
 	return specular;
 }

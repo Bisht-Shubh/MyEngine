@@ -18,8 +18,40 @@ Engine::~Engine()
 void Engine::Init()
 {
 	m_window.InitWindow();
-
+	LoadResources();
 	m_currentScene->Init();
+}
+
+void Engine::LoadResources()
+{   
+	// Load time of shaders
+	auto start = std::chrono::high_resolution_clock::now();
+
+	//-------------------------------------------------------------------------------------------//
+	//---------------------LOAD SHADERS AND PRINT LOAD TIME TO CONSOLE---------------------------//
+	//-------------------------------------------------------------------------------------------//
+	ResourceManager::LoadShader("Shader Files/SpotLight_vs.txt", "Shader Files/SpotLight_fs.txt", nullptr, "SpotLight");
+
+	auto end = std::chrono::high_resolution_clock::now();       // END LOAD TIME
+
+	auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end - start);
+
+	std::cout << "\nDEBUG::Loaded shaders in::" << duration.count() << "ms";
+
+	// List loaded shaders
+	std::stringstream ss;
+
+	ss << "\n============================================\n";
+	ss << "DEBUG::Shader loading complete";
+	ss << "\nLOADED_SHADERS::(" << ResourceManager::Shaders.size() << ")\n";    // print total shaders loaded
+	ss << "\n--------------------------------------------\n";
+
+	for (const auto& [name, shader] : ResourceManager::Shaders)
+		ss << name << "\n";                         // print all shaders name
+
+	ss << "============================================\n";
+
+	std::cout << ss.str();
 }
 
 void Engine::Run()

@@ -31,8 +31,6 @@ void Window::InitWindow()
 	glfwMakeContextCurrent(m_window);
 	glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
 	glfwSetKeyCallback(m_window, key_callback);
-	glfwSetCursorPosCallback(m_window, mouseCallBack);
-	glfwSetWindowUserPointer(m_window, this);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "DEBUG::ERROR::Failed to initialize GLAD" << std::endl;

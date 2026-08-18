@@ -49,7 +49,7 @@ void Transform::SetScale(const glm::vec3& scale)
 
 void Transform::Scale(float x, float y, float z)
 {
-	m_Scale += glm::vec3(x, y, z);
+	m_Scale *= glm::vec3(x, y, z);
 	m_Dirty = true;
 }
 

@@ -121,7 +121,7 @@
       <Filter>Header Files\Lighting</Filter>
     </ClInclude>
     <ClInclude Include="SpotLight.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Lighting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

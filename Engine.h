@@ -10,6 +10,7 @@
 #include "Input.h"
 #include "CameraController.h"
 
+#include<chrono>
 #include<memory>
 
 class Engine
@@ -33,6 +34,7 @@ public:
 	Engine& operator=(const Engine&) = delete;
 
 	void Init();
+	void LoadResources();
 
 	void Run();
 
