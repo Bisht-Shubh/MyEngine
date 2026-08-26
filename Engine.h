@@ -9,6 +9,8 @@
 #include "Window.h"
 #include "Input.h"
 #include "CameraController.h"
+#include "EntityManager.h"
+#include "Entity.h"
 
 #include<chrono>
 #include<memory>

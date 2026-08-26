@@ -52,6 +52,12 @@
     <Filter Include="Source Files\Camera">
       <UniqueIdentifier>{088017ed-c4f4-4eb5-9a01-395ee2f66078}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Entity System">
+      <UniqueIdentifier>{d1adb2cb-22b5-4ea8-85a1-d4f41255e818}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Entity System">
+      <UniqueIdentifier>{065d918a-4832-432c-b1a6-9cf9daeb4b0f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cube.h">
@@ -123,6 +129,15 @@
     <ClInclude Include="SpotLight.h">
       <Filter>Header Files\Lighting</Filter>
     </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityID.h">
+      <Filter>Header Files\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Header Files\Entity System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -193,6 +208,12 @@
     </ClCompile>
     <ClCompile Include="SpotLight.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Source Files\Entity System</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityManager.cpp">
+      <Filter>Source Files\Entity System</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

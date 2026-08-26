@@ -2,7 +2,7 @@
 #include "Scene.h"
 
 Scene::Scene(unsigned int width, unsigned int height, Input& input)
-	: Width(width), Height(height), Keys(), input(input), camera(width, height, 45.0f)
+	: Width(width), Height(height), Keys(), input(input), camera(width, height, 45.0f), m_entityManager(this)
 {}
 
 Scene::~Scene()
@@ -25,7 +25,7 @@ void Scene::Init()
     glm::vec3 ambient = glm::vec3(1.6f, 1.6f, 1.6f);
 	glm::vec3 pos = glm::vec3(0.0f, 12.0f, 0.0f);
 	glm::vec3 dir = glm::vec3(0.0f, -1.0f, 0.0f);
-	float innerAngle = 27.5f;  // degrees
+	float innerAngle = 27.5f;  // degreess
 	float outerAngle = 32.5f;  // degrees
  
 	spotLight = std::make_unique<SpotLight>(ambient, diffuse, specular, pos, dir, innerAngle, outerAngle);
@@ -78,5 +78,15 @@ void Scene::SetUpdateCallback(UpdateCallback callback)
 Camera& Scene::GetCamera()
 {
     return camera;
+}
+
+Entity Scene::CreateEntity(const std::string& name)
+{
+    return m_entityManager.CreateEntity(name);
+}
+
+EntityManager& Scene::GetEntityManager()
+{
+    return m_entityManager;
 }
 

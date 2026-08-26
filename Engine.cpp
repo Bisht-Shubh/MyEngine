@@ -58,6 +58,22 @@ void Engine::Run()
 {
 	GLFWwindow* window = m_window.GetWindow();
 
+	Entity cube = m_currentScene->CreateEntity("Cube");
+
+	std::cout << "\nGetName() ::" << cube.GetName();
+	std::cout << "\nGetID() :: " << cube.GetID();
+
+	Entity box = m_currentScene->CreateEntity("Box");
+	
+	std::cout << "\nGetName() ::" << box.GetName();
+	std::cout << "\nGetID() :: " << box.GetID();
+
+	std::cout << "\n\nDEBUG::DELETING CUBE";
+	m_currentScene->GetEntityManager().DestroyEntity(1);
+
+	box.SetName("Boxes");
+	std::cout << "\nNew name :: " << box.GetName();
+
 	// Game loop
 	while (!m_window.ShouldClose())
 	{

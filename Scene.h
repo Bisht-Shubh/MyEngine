@@ -21,20 +21,23 @@
 #include "PointLight.h"
 #include "SpotLight.h"
 #include "DirectionalLight.h"
+#include "EntityManager.h"
+#include "Entity.h"
 
 class Scene
 {
 public:
-	bool Keys[1024];
-	bool KeysProcessed[1024];
-	unsigned int Width, Height;
+	bool Keys[1024]{};
+	bool KeysProcessed[1024]{};
+	unsigned int Width, Height;	
 
 	using UpdateCallback = std::function<void(Scene&, float)>;
+
 
 	std::vector<MeshRenderer*> gameObjects;
 
 	// Constructors
-	Scene();
+	Scene() = default;
 	Scene(unsigned int width, unsigned int height, Input& input);
 
 	// Destructor
@@ -59,6 +62,10 @@ public:
 	// Set directional light properties and add to scene
 	void SetDirectionalLight(const glm::vec3& direction, const glm::vec3& ambient, const glm::vec3& diffuse, const glm::vec3& specular);
 	
+	// Entity system
+	Entity CreateEntity(const std::string& name);
+	EntityManager& GetEntityManager();
+
 	// Shadow mapping
 	unsigned int depthMapFBO;
 	unsigned int depthMap;
@@ -71,6 +78,9 @@ private:
 	std::unique_ptr<SpotLight> spotLight;
 	std::unique_ptr<PointLight> pointLight;
 	std::unique_ptr<DirectionalLight> directionalLight;
+
+	// Entity
+	EntityManager m_entityManager;
 
 	// Models
 	std::unique_ptr<Model> Car;
