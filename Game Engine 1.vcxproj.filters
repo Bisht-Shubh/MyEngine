@@ -138,6 +138,12 @@
     <ClInclude Include="EntityManager.h">
       <Filter>Header Files\Entity System</Filter>
     </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Header Files\Entity System</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Cube.cpp">
@@ -206,13 +212,16 @@
     <ClCompile Include="PointLight.cpp">
       <Filter>Source Files\Lighting</Filter>
     </ClCompile>
-    <ClCompile Include="SpotLight.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>Source Files\Entity System</Filter>
     </ClCompile>
     <ClCompile Include="EntityManager.cpp">
+      <Filter>Source Files\Entity System</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotLight.cpp">
+      <Filter>Source Files\Lighting</Filter>
+    </ClCompile>
+    <ClCompile Include="ComponentManager.cpp">
       <Filter>Source Files\Entity System</Filter>
     </ClCompile>
   </ItemGroup>
@@ -247,5 +256,10 @@
     <Text Include="SpotLight_fs.txt">
       <Filter>Shader Programs</Filter>
     </Text>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Entity.inl">
+      <Filter>Source Files\Entity System</Filter>
+    </None>
   </ItemGroup>
 </Project>

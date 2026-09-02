@@ -64,9 +64,12 @@ void Engine::Run()
 	std::cout << "\nGetID() :: " << cube.GetID();
 
 	Entity box = m_currentScene->CreateEntity("Box");
-	
+	box.AddComponent<Transform>();
+	box.AddComponent<Transform>();
+
 	std::cout << "\nGetName() ::" << box.GetName();
 	std::cout << "\nGetID() :: " << box.GetID();
+
 
 	std::cout << "\n\nDEBUG::DELETING CUBE";
 	m_currentScene->GetEntityManager().DestroyEntity(1);

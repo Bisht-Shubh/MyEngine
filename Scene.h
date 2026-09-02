@@ -22,10 +22,12 @@
 #include "SpotLight.h"
 #include "DirectionalLight.h"
 #include "EntityManager.h"
-#include "Entity.h"
+#include "ComponentManager.h"
+
+class Entity;
 
 class Scene
-{
+{    
 public:
 	bool Keys[1024]{};
 	bool KeysProcessed[1024]{};
@@ -66,6 +68,9 @@ public:
 	Entity CreateEntity(const std::string& name);
 	EntityManager& GetEntityManager();
 
+	// Component manager
+	ComponentManager& GetComponentManager();
+
 	// Shadow mapping
 	unsigned int depthMapFBO;
 	unsigned int depthMap;
@@ -81,6 +86,9 @@ private:
 
 	// Entity
 	EntityManager m_entityManager;
+
+	// Component Manager
+	ComponentManager m_componentManager;
 
 	// Models
 	std::unique_ptr<Model> Car;
@@ -98,4 +106,6 @@ private:
 
 	Input& input;
 };
+
+#include "Entity.inl"
 

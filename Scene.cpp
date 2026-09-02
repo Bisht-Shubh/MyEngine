@@ -2,8 +2,9 @@
 #include "Scene.h"
 
 Scene::Scene(unsigned int width, unsigned int height, Input& input)
-	: Width(width), Height(height), Keys(), input(input), camera(width, height, 45.0f), m_entityManager(this)
-{}
+	: Width(width), Height(height), Keys(), input(input), camera(width, height, 45.0f), m_entityManager(this), m_componentManager(this)
+{
+}
 
 Scene::~Scene()
 {}
@@ -88,5 +89,10 @@ Entity Scene::CreateEntity(const std::string& name)
 EntityManager& Scene::GetEntityManager()
 {
     return m_entityManager;
+}
+
+ComponentManager& Scene::GetComponentManager()
+{
+	return m_componentManager;
 }
 
