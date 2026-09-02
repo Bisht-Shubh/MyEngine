@@ -115,7 +115,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\assimp-master\include;C:\assimp-master\Build\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Third Party\assimp\include;$(SolutionDir)Third Party\assimp\build\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
