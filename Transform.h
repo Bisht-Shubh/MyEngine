@@ -11,7 +11,10 @@ class Transform : public Component
 {
 public:
 	Transform();
-	Transform(const glm::vec3& position, const glm::vec3& rotation, const glm::vec3& scale);
+
+	Transform(EntityID entityID)
+		: Component(entityID), m_Position(0.0f), m_Rotation(0.0f), m_Scale(1.0f) {
+	}
 
 	void SetPosition(const glm::vec3& position);
 	void Translate(float x, float y, float z);

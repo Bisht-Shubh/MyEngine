@@ -4,10 +4,10 @@ class PointLight :
     public Light
 {
 public:
-	PointLight(glm::vec3 amb, glm::vec3 diff, glm::vec3 spec, glm::vec3 pos, float intensity);
+	PointLight(EntityID entityID);
 	
-	glm::vec3 pos;
-	float intensity;
+	glm::vec3 pos{0.0f, 0.0f, 0.0f};
+	float intensity{32.0f};
 
 	glm::vec3 GetPosition() const;
 	

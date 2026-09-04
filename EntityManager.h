@@ -27,6 +27,7 @@ public:
 	Entity GetEntity(EntityID id);
 	Entity FindEntity(const std::string& name);
 	bool Exists(EntityID id) const;
+	const std::vector<EntityData>& GetAllEntities() const;
 
 private:
 	Scene* m_scene = nullptr;

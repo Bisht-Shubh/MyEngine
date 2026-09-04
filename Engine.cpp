@@ -3,6 +3,7 @@
 #include "pch.h"
 #include "Engine.h"
 
+void PrintShaderList();
 
 Engine::Engine()
 	: m_input(), m_window(1400, 1200, m_input)
@@ -38,44 +39,26 @@ void Engine::LoadResources()
 
 	std::cout << "\nDEBUG::Loaded shaders in::" << duration.count() << "ms";
 
-	// List loaded shaders
-	std::stringstream ss;
-
-	ss << "\n============================================\n";
-	ss << "DEBUG::Shader loading complete";
-	ss << "\nLOADED_SHADERS::(" << ResourceManager::Shaders.size() << ")\n";    // print total shaders loaded
-	ss << "\n--------------------------------------------\n";
-
-	for (const auto& [name, shader] : ResourceManager::Shaders)
-		ss << name << "\n";                         // print all shaders name
-
-	ss << "============================================\n";
-
-	std::cout << ss.str();
+	PrintShaderList();
 }
 
 void Engine::Run()
 {
 	GLFWwindow* window = m_window.GetWindow();
 
-	Entity cube = m_currentScene->CreateEntity("Cube");
+	Entity car = m_currentScene->CreateEntity("Car");
+	MeshRenderer* meshRenderer = car.AddComponent<MeshRenderer>();
 
-	std::cout << "\nGetName() ::" << cube.GetName();
-	std::cout << "\nGetID() :: " << cube.GetID();
+	Model carModel("Assets/Models/Low Poly Car.obj");
+	meshRenderer->SetModel(&carModel);
 
-	Entity box = m_currentScene->CreateEntity("Box");
-	box.AddComponent<Transform>();
-	box.AddComponent<Transform>();
+	Material carMaterial(&ResourceManager::GetShader("SpotLight"));
+	meshRenderer->SetMaterial(&carMaterial);
 
-	std::cout << "\nGetName() ::" << box.GetName();
-	std::cout << "\nGetID() :: " << box.GetID();
+	Transform* carTransform = car.AddComponent<Transform>();
+	carTransform->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));	
 
-
-	std::cout << "\n\nDEBUG::DELETING CUBE";
-	m_currentScene->GetEntityManager().DestroyEntity(1);
-
-	box.SetName("Boxes");
-	std::cout << "\nNew name :: " << box.GetName();
+	SpotLight* spotlight = car.AddComponent<SpotLight>();
 
 	// Game loop
 	while (!m_window.ShouldClose())
@@ -91,10 +74,7 @@ void Engine::Run()
 		// Update 
 		m_window.Update();
 		m_cameraController.Update(deltaTime, m_currentScene->GetCamera(), m_input);
-		m_currentScene->Update(deltaTime);
-		
-		// Render
-		m_currentScene->Render();
+		m_renderer.Render(*m_currentScene);
 
 		// Swap buffers and poll events
 		glfwSwapBuffers(window);
@@ -116,4 +96,20 @@ Scene* Engine::GetCurrentScene() const
 	return m_currentScene.get();
 }
 
+void PrintShaderList()
+{
+	// List loaded shaders
+	std::stringstream ss;
 
+	ss << "\n============================================\n";
+	ss << "DEBUG::Shader loading complete";
+	ss << "\nLOADED_SHADERS::(" << ResourceManager::Shaders.size() << ")\n";    // print total shaders loaded
+	ss << "\n--------------------------------------------\n";
+
+	for (const auto& [name, shader] : ResourceManager::Shaders)
+		ss << name << "\n";                         // print all shaders name
+
+	ss << "============================================\n";
+
+	std::cout << ss.str();
+}

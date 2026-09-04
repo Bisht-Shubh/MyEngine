@@ -7,7 +7,6 @@
 
 #include "ResourceManager.h"
 #include "MeshRenderer.h"
-#include "Cube.h"
 #include "Camera.h"
 #include "Input.h"
 #include "Transform.h"
@@ -55,9 +54,6 @@ public:
 	// Client hooks
 	void SetUpdateCallback(UpdateCallback callback);
 	
-	// Rendering
-	Cube* Instantiate();
-
 	void SetCamera(Camera cam);
 	Camera& GetCamera();
 
@@ -95,6 +91,9 @@ private:
 
 	//Camera
 	Camera camera;
+
+	// Lights
+	SpotLight* m_spotLight;
 
 	UpdateCallback updateCallback;
 

@@ -16,9 +16,9 @@ public:
 
 	//Component lifecycles
 	template<typename T>
-	T* CreateComponent()
+	T* CreateComponent(EntityID entityID)
 	{
-		auto component = std::make_unique<T>();	
+		auto component = std::make_unique<T>(entityID);
 
 		std::cout << "\nDEBUG::MESSAGE::Created Component";
 
@@ -29,6 +29,17 @@ public:
 		std::cout << "\nDEBUG::CREATE_COMPONENT()::Component count :: " << m_components.size();
 
 		return ptr;
+	}
+
+	template<typename T>
+	T* GetComponent(EntityID entityID)
+	{
+		for (auto& comp : m_components) {
+			if (comp->GetEntityID() == entityID) {
+				if (T* ptr = dynamic_cast<T*>(comp.get())) return ptr;
+			}
+		}
+		return nullptr;
 	}
 
 	void DestroyComponent(Component* component);

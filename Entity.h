@@ -29,6 +29,9 @@ public:
 	template<typename T>
 	T* AddComponent();
 
+	template<typename T>
+	T* GetComponent();
+
 	void RemoveComponent(Component* component);
 };
 

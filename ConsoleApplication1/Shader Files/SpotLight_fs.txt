@@ -36,7 +36,8 @@ float distanceAttenuation(float distance)
 
 float spotlightAttenuation(vec3 lightDir)
 {
-	
+	float innerCutoff = cos(radians(spotLight.innerAngle));
+	float outerCutoff = cos(radians(spotLight.outerAngle));
 	float theta = dot(lightDir, normalize(-spotLight.direction));
 	float epsilon = spotLight.innerAngle - spotLight.outerAngle;
 
@@ -46,6 +47,8 @@ float spotlightAttenuation(vec3 lightDir)
 
 void main()
 {
+	
+
 	vec3 normal = normalize(fs_in.Normal);
 	vec3 lightDir = normalize(spotLight.position - fs_in.FragPos);
 

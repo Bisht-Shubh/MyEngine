@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "PointLight.h"
 
-PointLight::PointLight(glm::vec3 amb, glm::vec3 diff, glm::vec3 spec, glm::vec3 pos, float intensity)
-    : Light(amb, diff, spec), pos(pos), intensity(intensity)
+PointLight::PointLight(EntityID entityID)
+    : Light(entityID)
 {
 	std::cout << "\n--------------------------------------------\n";
 	std::cout << "\nDEBUG::PointLight succesfully created with properties:\n";

@@ -95,4 +95,9 @@ bool EntityManager::Exists(EntityID id) const
 		}) != m_entities.end();
 }
 
+const std::vector<EntityData>& EntityManager::GetAllEntities() const
+{
+	return m_entities;
+}
+
 

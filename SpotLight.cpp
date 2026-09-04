@@ -1,8 +1,8 @@
 #include "pch.h"
 #include "SpotLight.h"
 
-SpotLight::SpotLight(glm::vec3 amb, glm::vec3 diff, glm::vec3 spec, glm::vec3 pos, glm::vec3 dir, float innerAngle, float outerAngle)
-	: Light(amb, diff, spec), position(pos), direction(dir), innerAngle(innerAngle), outerAngle(outerAngle)
+SpotLight::SpotLight(EntityID entityID)
+	: Light(entityID)
 {
 	innerAngle = glm::cos(glm::radians(innerAngle));
 	outerAngle = glm::cos(glm::radians(outerAngle));

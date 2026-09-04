@@ -19,19 +19,20 @@
 #include<glm/gtc/matrix_transform.hpp>
 #include<glm/gtc/type_ptr.hpp>
 #include "Shader.h"
+#include "Component.h"
 
-class Light
+class Light : public Component
 {
 protected:
 	// General light properties
-	glm::vec3 ambient;
-	glm::vec3 diffuse;
-	glm::vec3 specular;
+	glm::vec3 ambient{ 1.5f, 1.5f, 1.5f };
+	glm::vec3 diffuse{ 0.6f, 0.6f, 0.6f };
+	glm::vec3 specular{ 1.6f, 1.6f, 1.6f };
 
 public:
 
 	// Constructor to initialize light properties
-	Light(glm::vec3 amb, glm::vec3 diff, glm::vec3 spec);
+	Light(EntityID entityID);
 	virtual ~Light() = default;  // Virtual destructor for proper cleanup of derived classes
 
 	// getters 

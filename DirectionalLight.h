@@ -17,12 +17,12 @@ private:
 	
 
 public:
-	glm::vec3 direction;
+	glm::vec3 direction{ 0.0f, -1.0f, 0.0f };
 	// Constructor to initialize directional light properties
-	DirectionalLight(glm::vec3 dir, glm::vec3 amb, glm::vec3 diff, glm::vec3 spec);
+	DirectionalLight(EntityID entityID);
 
-	// Get direction of the light
 	glm::vec3 GetDirection();
+	void SetDirection(float x, float y, float z);
 
 	// Apply directional light properties to the shader
 	void ApplyLight(Shader& shader) const override;

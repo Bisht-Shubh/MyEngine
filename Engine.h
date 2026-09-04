@@ -3,7 +3,6 @@
 #include "Scene.h"
 #include "Camera.h"
 #include "MeshRenderer.h"
-#include "Cube.h"
 #include "DirectionalLight.h"
 #include "ResourceManager.h"
 #include "Window.h"
@@ -11,9 +10,12 @@
 #include "CameraController.h"
 #include "EntityManager.h"
 #include "Entity.h"
+#include "Material.h"
+#include "Renderer.h"
 
 #include<chrono>
 #include<memory>
+
 
 class Engine
 {
@@ -26,6 +28,8 @@ private:
 	Window m_window;
 	CameraController m_cameraController;
 
+	Renderer m_renderer;
+
 public:
 	Engine();
 
@@ -35,6 +39,7 @@ public:
 	Engine(const Engine&) = delete;
 	Engine& operator=(const Engine&) = delete;
 
+	// Initializing engine and resources
 	void Init();
 	void LoadResources();
 

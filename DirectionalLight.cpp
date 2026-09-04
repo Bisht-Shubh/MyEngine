@@ -2,8 +2,8 @@
 #include "DirectionalLight.h"
 #include "ResourceManager.h"
 
-DirectionalLight::DirectionalLight(glm::vec3 dir, glm::vec3 amb, glm::vec3 diff, glm::vec3 spec)
-	: Light(amb, diff, spec), direction(dir)
+DirectionalLight::DirectionalLight(EntityID entityID)
+	: Light(entityID)
 {
 	
 }
@@ -11,6 +11,11 @@ DirectionalLight::DirectionalLight(glm::vec3 dir, glm::vec3 amb, glm::vec3 diff,
 glm::vec3 DirectionalLight::GetDirection()
 {
 	return direction;
+}
+
+void DirectionalLight::SetDirection(float x, float y, float z)
+{
+	direction = glm::vec3(x, y, z);
 }
 
 void DirectionalLight::ApplyLight(Shader& shader) const

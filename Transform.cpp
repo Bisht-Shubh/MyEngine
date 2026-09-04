@@ -2,12 +2,9 @@
 #include "Transform.h"
 
 Transform::Transform()
-	: m_Position(0.0f), m_Rotation(0.0f), m_Scale(1.0f)
-{}
-
-Transform::Transform(const glm::vec3 & position, const glm::vec3 & rotation, const glm::vec3 & scale)
-	: m_Position(position), m_Rotation(rotation), m_Scale(scale)
-{}
+	: Component(INVALID_ENTITY), m_Position(0.0f), m_Rotation(0.0f), m_Scale(1.0f)
+{
+}
 
 void Transform::SetPosition(const glm::vec3 & position)
 {

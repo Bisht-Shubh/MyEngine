@@ -5,7 +5,7 @@ class SpotLight :
     public Light
 {
 public:
-	SpotLight(glm::vec3 amb, glm::vec3 diff, glm::vec3 spec, glm::vec3 pos, glm::vec3 dir, float innerAngle, float outerAngle);
+	SpotLight(EntityID entityID);
 
 	float GetInnerAngle() const;
 	float GetOuterAngle() const;
@@ -21,13 +21,13 @@ public:
 	virtual void ApplyLight(Shader& shader) const override;
 
 private:
-	float innerAngle;			// degrees
-	float outerAngle;			// degrees
-	glm::vec3 position;
-	glm::vec3 direction;
-	float constant = 1.0f;
-	float linear = 0.09f;
-	float quadratic = 0.032f;
-	float intensity = 1.0f;
+	float innerAngle{ 35.5f };			// degrees
+	float outerAngle{ 50.5f };			// degrees
+	glm::vec3 position{0.0f, 12.0f, 0.0f};
+	glm::vec3 direction{0.0f, -1.0f, 0.0f};
+	float constant{ 1.0f };
+	float linear{ 0.09f };
+	float quadratic{ 0.032f };
+	float intensity{ 2.0f };
 };
 
