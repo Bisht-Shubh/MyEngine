@@ -5,48 +5,48 @@
 #include "MeshRenderer.h"
 #include "DirectionalLight.h"
 #include "ResourceManager.h"
-#include "Window.h"
 #include "Input.h"
 #include "CameraController.h"
 #include "EntityManager.h"
 #include "Entity.h"
 #include "Material.h"
 #include "Renderer.h"
+#include "DebugLayer.h"
 
-#include<chrono>
-#include<memory>
-
+#include <chrono>
+#include <memory>
 
 class Engine
 {
 private:
-	std::unique_ptr<Scene> m_currentScene;
-	float deltaTime{ 0.0f };
-	float lastFrame{ 0.0f };
+    std::unique_ptr<Scene> m_currentScene;
 
-	Input m_input;
-	Window m_window;
-	CameraController m_cameraController;
+    Input& m_input;
 
-	Renderer m_renderer;
+    CameraController m_cameraController;
+    Renderer m_renderer;
+    DebugLayer m_debugLayer;
 
 public:
-	Engine();
+    explicit Engine(Input& input);
+    ~Engine();
 
-	~Engine();
+    // Prevent copying
+    Engine(const Engine&) = delete;
+    Engine& operator=(const Engine&) = delete;
 
-	// Prevent copying and ensure move semantics
-	Engine(const Engine&) = delete;
-	Engine& operator=(const Engine&) = delete;
+    // Engine initialization
+    void Init();
+    void LoadResources();
 
-	// Initializing engine and resources
-	void Init();
-	void LoadResources();
+    // Per-frame engine operations
+    void Update(float deltaTime);
+    void Render();
 
-	void Run();
+    // Scene management
+    void LoadScene(Scene* newScene);
+    Scene* GetCurrentScene() const;
 
-	// Scene management
-	void LoadScene(Scene* newScene);
-	Scene* GetCurrentScene() const;
+    // Debug information
+    DebugLayer& GetDebugLayer();
 };
-

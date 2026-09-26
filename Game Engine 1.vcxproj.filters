@@ -5,25 +5,8 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
     <Filter Include="Shader Programs">
       <UniqueIdentifier>{57d622b9-638d-45c0-9c23-81147f7fcaad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Meshes">
-      <UniqueIdentifier>{dc9cccab-2753-4d54-ae8c-d14597ca2933}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Resources">
-      <UniqueIdentifier>{d56fea62-6a85-4e6a-be5a-af873c0c2844}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\General">
-      <UniqueIdentifier>{269f3601-73e1-4b6e-8dd6-93a2b7e03f27}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Meshes">
       <UniqueIdentifier>{2d5f3adc-1f23-4e39-8039-d164444b82b0}</UniqueIdentifier>
@@ -34,20 +17,11 @@
     <Filter Include="Source Files\General">
       <UniqueIdentifier>{659ce07d-f037-47c0-88ca-99dd4647c562}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Lighting">
-      <UniqueIdentifier>{59e617e6-5600-4d4e-921e-3c81f1348431}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Lighting">
       <UniqueIdentifier>{9c3d5e43-e0c6-4515-8b33-9b9e8d40850e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Input and Window">
-      <UniqueIdentifier>{fb00043d-b3d9-4456-bb64-84a5a81d6558}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Input and Window">
       <UniqueIdentifier>{ad4e54d0-c15a-4ecb-8e95-25b5904a5c6c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Camera">
-      <UniqueIdentifier>{4265005b-1c30-4e6e-911a-21eb84773c90}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Camera">
       <UniqueIdentifier>{088017ed-c4f4-4eb5-9a01-395ee2f66078}</UniqueIdentifier>
@@ -55,12 +29,108 @@
     <Filter Include="Source Files\Entity System">
       <UniqueIdentifier>{d1adb2cb-22b5-4ea8-85a1-d4f41255e818}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\imgui">
+      <UniqueIdentifier>{33893baf-ca27-4151-865d-9fd8cbd66dc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{2ea9be12-c8a5-4d84-b5c2-00c5575f70d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Camera">
+      <UniqueIdentifier>{0d8f9547-9401-49f2-ac9d-186dec58b1b4}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Header Files\Entity System">
-      <UniqueIdentifier>{065d918a-4832-432c-b1a6-9cf9daeb4b0f}</UniqueIdentifier>
+      <UniqueIdentifier>{d23f6b3f-e209-44f7-adc7-baa338bf2b33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\General">
+      <UniqueIdentifier>{b7235c38-0c12-4b3c-9b4a-7968f41b5203}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Input and Window">
+      <UniqueIdentifier>{f9ec1ac0-2f88-4831-89cd-2a457542c58c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Lighting">
+      <UniqueIdentifier>{e78d6e42-463b-4abf-9ff0-0a7f2377d312}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Meshes">
+      <UniqueIdentifier>{59f20b5e-95aa-42d0-9b35-df22df706a2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\imgui">
+      <UniqueIdentifier>{b41d23f7-9b21-4f88-a4b3-dd1a29cb3517}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Resources">
+      <UniqueIdentifier>{41985fcd-a128-42b9-ba5c-c4fe1ba72ed0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Editor">
+      <UniqueIdentifier>{d67bd111-f2f1-4a89-bdcd-2fb64d7c5de3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Editor">
+      <UniqueIdentifier>{2bfec8ac-62d2-4c30-8f1c-558aeee2afd4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Camera.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="CameraController.h">
+      <Filter>Header Files\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>Header Files\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="ComponentManager.h">
+      <Filter>Header Files\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Header Files\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityID.h">
+      <Filter>Header Files\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityManager.h">
+      <Filter>Header Files\Entity System</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="Skybox.h">
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="stbi_image.h">
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Header Files\Input and Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Header Files\Input and Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Window.h">
+      <Filter>Header Files\Input and Window</Filter>
+    </ClInclude>
+    <ClInclude Include="DirectionalLight.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Light.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="PointLight.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="SpotLight.h">
+      <Filter>Header Files\Lighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Material.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Mesh.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
     <ClInclude Include="MeshRenderer.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
       <Filter>Header Files\Meshes</Filter>
     </ClInclude>
     <ClInclude Include="Shader.h">
@@ -72,8 +142,8 @@
     <ClInclude Include="Texture.h">
       <Filter>Header Files\Meshes</Filter>
     </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Header Files\Resources</Filter>
+    <ClInclude Include="imGuiLayer.h">
+      <Filter>Header Files\imgui</Filter>
     </ClInclude>
     <ClInclude Include="Engine.h">
       <Filter>Header Files\Resources</Filter>
@@ -84,69 +154,14 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Scene.h">
-      <Filter>Header Files\General</Filter>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Header Files\Resources</Filter>
     </ClInclude>
-    <ClInclude Include="Skybox.h">
-      <Filter>Header Files\General</Filter>
+    <ClInclude Include="DebugLayer.h">
+      <Filter>Header Files\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="stbi_image.h">
-      <Filter>Header Files\General</Filter>
-    </ClInclude>
-    <ClInclude Include="Mesh.h">
-      <Filter>Header Files\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Model.h">
-      <Filter>Header Files\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Light.h">
-      <Filter>Header Files\Lighting</Filter>
-    </ClInclude>
-    <ClInclude Include="DirectionalLight.h">
-      <Filter>Header Files\Lighting</Filter>
-    </ClInclude>
-    <ClInclude Include="Window.h">
-      <Filter>Header Files\Input and Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Header Files\Input and Window</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="CameraController.h">
-      <Filter>Header Files\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Header Files\Input and Window</Filter>
-    </ClInclude>
-    <ClInclude Include="PointLight.h">
-      <Filter>Header Files\Lighting</Filter>
-    </ClInclude>
-    <ClInclude Include="SpotLight.h">
-      <Filter>Header Files\Lighting</Filter>
-    </ClInclude>
-    <ClInclude Include="Entity.h">
-      <Filter>Header Files\Entity System</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityID.h">
-      <Filter>Header Files\Entity System</Filter>
-    </ClInclude>
-    <ClInclude Include="EntityManager.h">
-      <Filter>Header Files\Entity System</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
-      <Filter>Header Files\Entity System</Filter>
-    </ClInclude>
-    <ClInclude Include="ComponentManager.h">
-      <Filter>Header Files\Entity System</Filter>
-    </ClInclude>
-    <ClInclude Include="Renderer.h">
-      <Filter>Header Files\Meshes</Filter>
-    </ClInclude>
-    <ClInclude Include="Material.h">
-      <Filter>Header Files\Meshes</Filter>
-    </ClInclude>
+    <ClInclude Include="EditorLayer.h" />
+    <ClInclude Include="Application.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MeshRenderer.cpp">
@@ -230,6 +245,39 @@
     <ClCompile Include="Material.cpp">
       <Filter>Source Files\Meshes</Filter>
     </ClCompile>
+    <ClCompile Include="imGuiLayer.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Third Party\imgui\imgui-master\imgui.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Third Party\imgui\imgui-master\imgui_demo.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Third Party\imgui\imgui-master\imgui_draw.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Third Party\imgui\imgui-master\imgui_tables.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Third Party\imgui\imgui-master\imgui_widgets.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Third Party\imgui\imgui-master\backends\imgui_impl_glfw.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="Third Party\imgui\imgui-master\backends\imgui_impl_opengl3.cpp">
+      <Filter>Source Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="DebugLayer.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorLayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Text Include="Mesh_fs.txt">
@@ -265,7 +313,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Entity.inl">
-      <Filter>Source Files\Entity System</Filter>
+      <Filter>Header Files\Entity System</Filter>
     </None>
   </ItemGroup>
 </Project>

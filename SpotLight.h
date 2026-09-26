@@ -11,6 +11,7 @@ public:
 	float GetOuterAngle() const;
 	glm::vec3 GetPosition() const;
 	glm::vec3 GetDirection() const;
+	float GetIntensity() const;
 
 	void SetInnerAngle(float innerAngle);
 	void SetOuterAngle(float outerAngle);

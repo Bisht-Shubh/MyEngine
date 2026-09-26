@@ -8,7 +8,7 @@ public:
 	void OnKeyPressed(int key, int action);
 	void OnKeyReleased(int key);
 
-	bool IsKeyPressed(int key);
+	bool IsKeyPressed(int key); 
 	bool IsKeyReleased(int key);
 
 	void OnMouseMove(double xpos, double ypos);

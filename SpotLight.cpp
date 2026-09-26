@@ -28,6 +28,11 @@ glm::vec3 SpotLight::GetDirection() const
 	return direction;
 }
 
+float SpotLight::GetIntensity() const
+{
+	return intensity;
+}
+
 void SpotLight::SetInnerAngle(float innerAngle)
 {
 	this->innerAngle = innerAngle;

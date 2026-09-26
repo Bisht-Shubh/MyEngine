@@ -37,7 +37,7 @@ void Window::InitWindow()
 		std::exit(EXIT_FAILURE);
 	}  
 
-	glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	glDisable(GL_CULL_FACE);
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -46,7 +46,7 @@ void Window::InitWindow()
 
 	glfwSetWindowUserPointer(this->m_window, this);
 	glfwSetCursorPosCallback(this->m_window, mouseCallBack);
-	glfwSetInputMode(this->m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+	//glfwSetInputMode(this->m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
 GLFWwindow* Window::GetWindow() const

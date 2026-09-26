@@ -1,10 +1,10 @@
-#include "Engine.h"
+#include "Application.h"
 
 int main()
 {
-	Engine engine;
-	engine.Init();
-	engine.Run();
+	Application app;
+	app.Init();
+	app.Run();
 
 	return 0;
 }
