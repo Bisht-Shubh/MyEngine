@@ -23,6 +23,7 @@ void Camera::InitCamera()
 Camera::Camera(unsigned int windowWidth, unsigned int windowHeight, float cameraFOV)
 	: Width(windowWidth), Height(windowHeight), FOV(cameraFOV)
 {
+	UpdateCameraVectors();	
 	InitCamera();
 }
 
@@ -133,6 +134,16 @@ void Camera::SetCameraFront(glm::vec3 front)
 void Camera::SetCameraUp(glm::vec3 up)
 {
 	cameraUp = up;
+}
+
+void Camera::DisableCam()
+{
+	disableCam = true;
+}
+
+void Camera::EnableCam()
+{
+	disableCam = false;
 }
 
 

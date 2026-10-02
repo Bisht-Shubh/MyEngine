@@ -65,6 +65,9 @@
     <Filter Include="Source Files\Editor">
       <UniqueIdentifier>{2bfec8ac-62d2-4c30-8f1c-558aeee2afd4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Serialization">
+      <UniqueIdentifier>{f079b96e-d318-4c37-9a1d-f4486f246ba5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -160,8 +163,19 @@
     <ClInclude Include="DebugLayer.h">
       <Filter>Header Files\Editor</Filter>
     </ClInclude>
-    <ClInclude Include="EditorLayer.h" />
-    <ClInclude Include="Application.h" />
+    <ClInclude Include="Application.h">
+      <Filter>Header Files\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorLayer.h">
+      <Filter>Header Files\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneSerializer.h" />
+    <ClInclude Include="Include\json.hpp">
+      <Filter>Header Files\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Header Files\General</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MeshRenderer.cpp">
@@ -272,11 +286,17 @@
     <ClCompile Include="DebugLayer.cpp">
       <Filter>Source Files\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files\Resources</Filter>
+    </ClCompile>
     <ClCompile Include="EditorLayer.cpp">
+      <Filter>Source Files\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneSerializer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Game.cpp">
+      <Filter>Source Files\General</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

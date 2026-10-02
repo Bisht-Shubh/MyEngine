@@ -41,7 +41,7 @@ void imGuiLayer::BeginFrame()
 	ImGui::NewFrame();
 }
 
-void imGuiLayer::EndFrame()
+void imGuiLayer::Render()
 {
 	if (!m_isInitialized)
 	{

@@ -25,7 +25,7 @@ void Scene::Init()
 
 void Scene::Update(float dt)
 {
-
+	m_cameraController.Update(dt, camera, input);
 }
 
 void Scene::Render()

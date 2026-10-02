@@ -79,7 +79,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\assimp-master\include;C:\assimp-master\Build\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\assimp-master\include;C:\assimp-master\Build\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include;$(SolutionDir)/Third Party/Json</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -98,7 +98,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\assimp-master\include;C:\assimp-master\Build\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\assimp-master\include;C:\assimp-master\Build\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include;$(SolutionDir)/Third Party/Json</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -115,7 +115,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>$(SolutionDir)Third Party\assimp\build\include;$(SolutionDir)Third Party\assimp\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include;$(SolutionDir)Third Party\imgui\imgui-master;$(SolutionDir)Third Party\imgui\imgui-master\backends</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Third Party\assimp\build\include;$(SolutionDir)Third Party\assimp\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include;$(SolutionDir)Third Party\imgui\imgui-master;$(SolutionDir)Third Party\imgui\imgui-master\backends;$(SolutionDir)/Third Party/Json</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -134,7 +134,7 @@
       <LanguageStandard>stdcpp20</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <AdditionalIncludeDirectories>C:\assimp-master\include;C:\assimp-master\Build\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>C:\assimp-master\include;C:\assimp-master\Build\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include;$(SolutionDir)/Third Party/Json</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>
@@ -156,7 +156,9 @@
     <ClInclude Include="EntityID.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Game.h" />
     <ClInclude Include="imGuiLayer.h" />
+    <ClInclude Include="Include\json.hpp" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="ResourceManager.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneSerializer.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="Skybox.h" />
     <ClInclude Include="SpotLight.h" />
@@ -188,6 +191,7 @@
     <ClCompile Include="Engine.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="glad.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -211,6 +215,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneSerializer.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="Skybox.cpp" />
     <ClCompile Include="SpotLight.cpp" />

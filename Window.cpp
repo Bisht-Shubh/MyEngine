@@ -29,8 +29,10 @@ void Window::InitWindow()
     }
 
 	glfwMakeContextCurrent(m_window);
-	glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+	glfwSetWindowUserPointer(m_window, this);
+	glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);	
 	glfwSetKeyCallback(m_window, key_callback);
+	glfwSetCursorPosCallback(this->m_window, mouseCallBack);
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "DEBUG::ERROR::Failed to initialize GLAD" << std::endl;
@@ -44,8 +46,8 @@ void Window::InitWindow()
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 
-	glfwSetWindowUserPointer(this->m_window, this);
-	glfwSetCursorPosCallback(this->m_window, mouseCallBack);
+	
+	
 	//glfwSetInputMode(this->m_window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 }
 
@@ -71,6 +73,8 @@ unsigned int Window::GetHeight() const
 
 void Window::Update()
 {
+	glfwPollEvents();	
+
 	if (m_input.IsKeyPressed(GLFW_KEY_ESCAPE))
 		glfwSetWindowShouldClose(m_window, true);
 }

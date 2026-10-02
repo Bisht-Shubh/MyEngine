@@ -1,15 +1,42 @@
 #pragma once
-#include "Input.h"
+
+class Game;
+class DebugLayer;
+class imGuiLayer;
+class Input;
 
 class EditorLayer
 {
 public:
-	EditorLayer();
-	void Init();
-	void Update(float deltaTime);
-	void Render();
+
+    enum class Mode
+    {
+        Editor,
+        Game
+    };
+
+    EditorLayer(
+        Game& game,
+        Input& input,
+        DebugLayer& debugLayer,
+        imGuiLayer& imguiLayer
+    );
+
+    void Update(float deltaTime);
+    void CheckInput();
+
+    void SwitchToEditorMode();
+    void SwitchToGameMode();
+
+    bool IsEditorMode() const;
+    bool IsGameMode() const;
 
 private:
-	Input& m_input;
-};
 
+    Game& m_game;
+    Input& m_input;
+    DebugLayer& m_debugLayer;
+    imGuiLayer& m_imguiLayer;
+
+    Mode m_mode{ Mode::Editor };
+};

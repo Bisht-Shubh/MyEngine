@@ -29,6 +29,8 @@ private:
 
 	void UpdateCameraVectors();
 
+	bool disableCam{ true };
+
 public:
 	unsigned int Width, Height;
 
@@ -70,5 +72,9 @@ public:
 	void SetCameraPos(glm::vec3 pos);
 	void SetCameraFront(glm::vec3 front);
 	void SetCameraUp(glm::vec3 up);
+
+	void DisableCam();
+	void EnableCam();
+	bool IsCamDisabled() { return disableCam; }
 };
 

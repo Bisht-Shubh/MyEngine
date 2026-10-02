@@ -22,6 +22,7 @@
 #include "DirectionalLight.h"
 #include "EntityManager.h"
 #include "ComponentManager.h"
+#include "CameraController.h"
 
 class Entity;
 
@@ -91,6 +92,7 @@ private:
 
 	//Camera
 	Camera camera;
+	CameraController m_cameraController;
 
 	// Lights
 	SpotLight* m_spotLight;

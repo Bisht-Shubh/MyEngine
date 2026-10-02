@@ -7,7 +7,7 @@ class imGuiLayer
 public:
 	void Init(GLFWwindow* window);
 	void BeginFrame();
-	void EndFrame();
+	void Render();
 	void Shutdown();
 
 private:

@@ -14,7 +14,7 @@ size_t DebugLayer::GetMemoryUsage()
 void DebugLayer::SetShaderLoadTime(int time)
 {
 	m_shaderLoadTime = time;
-}
+}	
 
 int DebugLayer::GetShaderLoadTime() const
 {
