@@ -103,7 +103,9 @@ void Transform::Deserialize(const json& data)
 
 	m_Position = glm::vec3(position[0], position[1], position[2]);
 	m_Rotation = glm::vec3(rotation[0], rotation[1], rotation[2]);
-	m_Scale = glm::vec3(scale[0], scale[1], scale[2]);
+	m_Scale = glm::vec3(scale[0], scale[1], scale[2]);	
+
+	m_Dirty = true;
 }
 
 void Transform::RecalculateModelMatrix() const

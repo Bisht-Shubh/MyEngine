@@ -10,6 +10,8 @@
 #include "Entity.h"
 #include "Transform.h"
 
+#include "SceneSerializer.h"
+
 #include <GLFW/glfw3.h>
 #include <imgui.h>
 
@@ -101,6 +103,18 @@ void EditorLayer::Update(float deltaTime)
         glm::vec3 scale = carTransform->GetScale();
         if (ImGui::DragFloat3("scale", &scale.x, 0.1f))
             carTransform->SetScale(scale);
+    }
+
+    ImGui::End();
+
+	ImGui::Begin("Scene");
+
+    if(ImGui::Button("Save"))
+    {
+		if (SceneSerializer::Serialize(*scene, "Scene.json"))
+			std::cout << "\nDEBUG::MESSAGE::Scene saved successfully\n";
+		else
+			std::cout << "\nDEBUG::ERROR::Failed to save scene\n";
     }
 
     ImGui::End();

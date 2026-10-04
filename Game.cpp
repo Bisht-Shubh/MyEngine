@@ -9,6 +9,7 @@
 #include "Transform.h"
 #include "SpotLight.h"
 #include "ResourceManager.h"
+#include "SceneSerializer.h"
 
 Game::Game(Input& input)
     : m_input(input)
@@ -19,25 +20,17 @@ Game::~Game() = default;
 
 void Game::Init()
 {
-    auto scene =
-        std::make_unique<Scene>(
-            1400,
-            1200,
-            m_input
-        );
+    auto scene = std::make_unique<Scene>(1400, 1200, m_input);
 
     scene->Init();
 
-    auto [it, inserted] =
-        m_scenes.emplace(
-            "DefaultScene",
-            std::move(scene)
-        );
+    auto [it, inserted] = m_scenes.emplace("DefaultScene", std::move(scene));
 
-    m_currentScene =
-        it->second.get();
+    m_currentScene = it->second.get();
 
     CreateLevel();
+
+	SceneSerializer::Deserialize(*m_currentScene, "Scene.json");
 }
 
 void Game::Update(float deltaTime)
@@ -48,25 +41,18 @@ void Game::Update(float deltaTime)
     m_currentScene->Update(deltaTime);
 }
 
-void Game::LoadScene(
-    const std::string& sceneName
-)
+void Game::LoadScene(const std::string& sceneName)
 {
-    auto it =
-        m_scenes.find(sceneName);
+    auto it = m_scenes.find(sceneName);
 
     if (it == m_scenes.end())
     {
-        std::cerr
-            << "Scene not found: "
-            << sceneName
-            << std::endl;
+        std::cerr << "Scene not found: " << sceneName << std::endl;
 
         return;
     }
 
-    m_currentScene =
-        it->second.get();
+    m_currentScene = it->second.get();
 }
 
 Scene* Game::GetCurrentScene() const
@@ -79,36 +65,18 @@ void Game::CreateLevel()
     if (!m_currentScene)
         return;
 
-    Entity car =
-        m_currentScene->CreateEntity("Car");
+    Entity car = m_currentScene->CreateEntity("Car");
 
-    MeshRenderer* meshRenderer =
-        car.AddComponent<MeshRenderer>();
+    MeshRenderer* meshRenderer = car.AddComponent<MeshRenderer>();
 
-    Model* carModel =
-        new Model(
-            "Assets/Models/Low Poly Car.obj"
-        );
-
+    Model* carModel = new Model("Assets/Models/Low Poly Car.obj");
     meshRenderer->SetModel(carModel);
 
-    Material* carMaterial =
-        new Material(
-            &ResourceManager::GetShader("SpotLight")
-        );
-
+    Material* carMaterial = new Material(&ResourceManager::GetShader("SpotLight"));
     meshRenderer->SetMaterial(carMaterial);
 
-    Transform* carTransform =
-        car.AddComponent<Transform>();
-
-    carTransform->SetPosition(
-        glm::vec3(
-            0.0f,
-            0.0f,
-            -5.0f
-        )
-    );
+    Transform* carTransform = car.AddComponent<Transform>();
+    carTransform->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
 
     car.AddComponent<SpotLight>();
 }
