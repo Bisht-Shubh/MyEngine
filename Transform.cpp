@@ -68,7 +68,7 @@ const glm::vec3& Transform::GetScale() const
 }
 
 void Transform::Reset()
-{
+{	
 	m_Position = glm::vec3(0.0f);
 	m_Rotation = glm::vec3(0.0f);
 	m_Scale = glm::vec3(1.0f);
@@ -86,12 +86,55 @@ glm::mat4 Transform::GetModelMatrix() const
 	return m_ModelMatrix;
 }
 
+json Transform::Serialize() const
+{
+	return {
+		{"position", { m_Position.x, m_Position.y, m_Position.z } },
+		{"rotation", { m_Rotation.x, m_Rotation.y, m_Rotation.z } },
+		{"scale", { m_Scale.x, m_Scale.y, m_Scale.z } }
+	};
+}
+
+void Transform::Deserialize(const json& data)
+{
+	const auto& position = data.at("position");
+	const auto& rotation = data.at("rotation");
+	const auto& scale = data.at("scale");
+
+	m_Position = glm::vec3(position[0], position[1], position[2]);
+	m_Rotation = glm::vec3(rotation[0], rotation[1], rotation[2]);
+	m_Scale = glm::vec3(scale[0], scale[1], scale[2]);
+}
+
 void Transform::RecalculateModelMatrix() const
 {
 	m_ModelMatrix = glm::mat4(1.0f);
-	m_ModelMatrix = glm::translate(m_ModelMatrix, m_Position);
-	m_ModelMatrix = glm::rotate(m_ModelMatrix, m_Rotation.x, glm::vec3(1.0f, 0.0f, 0.0f));
-	m_ModelMatrix = glm::rotate(m_ModelMatrix, m_Rotation.y, glm::vec3(0.0f, 1.0f, 0.0f));
-	m_ModelMatrix = glm::rotate(m_ModelMatrix, m_Rotation.z, glm::vec3(0.0f, 0.0f, 1.0f));
-	m_ModelMatrix = glm::scale(m_ModelMatrix, m_Scale);
+
+	m_ModelMatrix = glm::translate(
+		m_ModelMatrix,
+		m_Position
+	);
+
+	m_ModelMatrix = glm::rotate(
+		m_ModelMatrix,
+		glm::radians(m_Rotation.x),
+		glm::vec3(1.0f, 0.0f, 0.0f)
+	);
+
+	m_ModelMatrix = glm::rotate(
+		m_ModelMatrix,
+		glm::radians(m_Rotation.y),
+		glm::vec3(0.0f, 1.0f, 0.0f)
+	);
+
+	m_ModelMatrix = glm::rotate(
+		m_ModelMatrix,
+		glm::radians(m_Rotation.z),
+		glm::vec3(0.0f, 0.0f, 1.0f)
+	);
+
+	m_ModelMatrix = glm::scale(
+		m_ModelMatrix,
+		m_Scale
+	);
 }

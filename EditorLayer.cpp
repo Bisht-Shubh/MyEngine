@@ -7,6 +7,8 @@
 #include "DebugLayer.h"
 #include "imGuiLayer.h"
 #include "ResourceManager.h"
+#include "Entity.h"
+#include "Transform.h"
 
 #include <GLFW/glfw3.h>
 #include <imgui.h>
@@ -75,6 +77,33 @@ void EditorLayer::Update(float deltaTime)
     );
 
     ImGui::End();
+
+	// Transform Inspector
+	Entity car = scene->GetEntityManager().FindEntity("Car");
+
+	Transform* carTransform = car.GetComponent<Transform>();
+
+	ImGui::Begin("Transform");
+
+    if (carTransform)
+    {
+        // Position
+        glm::vec3 position = carTransform->GetPosition();
+        if (ImGui::DragFloat3("position", &position.x, 0.1f))
+            carTransform->SetPosition(position);
+
+        // Rotation
+        glm::vec3 rotation = carTransform->GetRotation();
+        if (ImGui::DragFloat3("rotation", &rotation.x, 0.5f))
+            carTransform->SetRotation(rotation);
+
+        // Scale
+        glm::vec3 scale = carTransform->GetScale();
+        if (ImGui::DragFloat3("scale", &scale.x, 0.1f))
+            carTransform->SetScale(scale);
+    }
+
+    ImGui::End();
 }
 
 void EditorLayer::CheckInput()
@@ -95,7 +124,7 @@ void EditorLayer::CheckInput()
 
 void EditorLayer::SwitchToEditorMode()
 {
-	std::cout << "\nDEBUG::MESSAGEL::Switching to Editor Mode\n";
+	std::cout << "\nDEBUG::MESSAGE::Switching to Editor Mode\n";
 
 	Scene* scene = m_game.GetCurrentScene();
     scene->GetCamera().DisableCam();
@@ -105,7 +134,7 @@ void EditorLayer::SwitchToEditorMode()
 
 void EditorLayer::SwitchToGameMode()
 {
-	std::cout << "\nDEBUG::MESSAGEL::Switching to Game Mode\n";
+	std::cout << "\nDEBUG::MESSAGE::Switching to Game Mode\n";
 	Scene* scene = m_game.GetCurrentScene();
 	scene->GetCamera().EnableCam();
     m_mode = Mode::Game;

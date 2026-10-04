@@ -4,8 +4,10 @@
 #include <GLFW/glfw3.h>
 #include<glm/glm.hpp>
 #include<glm/gtc/matrix_transform.hpp>
-
+#include <json.hpp>
 #include "Component.h"
+
+using json = nlohmann::json;
 
 class Transform : public Component
 {
@@ -36,6 +38,10 @@ public:
 	void Reset();
 
 	glm::mat4 GetModelMatrix() const;
+
+	// Serialization
+	json Serialize() const;
+	void Deserialize(const json& data);
 
 private:
 	void RecalculateModelMatrix() const;
