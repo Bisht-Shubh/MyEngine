@@ -124,11 +124,22 @@ void Shader::SetBool(const char* name, bool value, bool useShader)
 	glUniform1i(glGetUniformLocation(this->ID, name), value);
 }
 
+// std::string overloads
+void Shader::SetBool(const std::string& name, bool value, bool useShader)
+{
+    SetBool(name.c_str(), value, useShader);
+}
+
 void Shader::SetFloat(const char* name, float value, bool useShader)
 {
     if (useShader)
         this->Use();
     glUniform1f(glGetUniformLocation(this->ID, name), value);
+}
+
+void Shader::SetFloat(const std::string& name, float value, bool useShader)
+{
+    SetFloat(name.c_str(), value, useShader);
 }
 void Shader::SetInteger(const char* name, int value, bool useShader)
 {
@@ -136,11 +147,21 @@ void Shader::SetInteger(const char* name, int value, bool useShader)
         this->Use();
     glUniform1i(glGetUniformLocation(this->ID, name), value);
 }
+
+void Shader::SetInteger(const std::string& name, int value, bool useShader)
+{
+    SetInteger(name.c_str(), value, useShader);
+}
 void Shader::SetVector2f(const char* name, float x, float y, bool useShader)
 {
     if (useShader)
         this->Use();
     glUniform2f(glGetUniformLocation(this->ID, name), x, y);
+}
+
+void Shader::SetVector2f(const std::string& name, float x, float y, bool useShader)
+{
+    SetVector2f(name.c_str(), x, y, useShader);
 }
 void Shader::SetVector2f(const char* name, const glm::vec2& value, bool useShader)
 {
@@ -148,11 +169,21 @@ void Shader::SetVector2f(const char* name, const glm::vec2& value, bool useShade
         this->Use();
     glUniform2f(glGetUniformLocation(this->ID, name), value.x, value.y);
 }
+
+void Shader::SetVector2f(const std::string& name, const glm::vec2& value, bool useShader)
+{
+    SetVector2f(name.c_str(), value, useShader);
+}
 void Shader::SetVector3f(const char* name, float x, float y, float z, bool useShader)
 {
     if (useShader)
         this->Use();
     glUniform3f(glGetUniformLocation(this->ID, name), x, y, z);
+}
+
+void Shader::SetVector3f(const std::string& name, float x, float y, float z, bool useShader)
+{
+    SetVector3f(name.c_str(), x, y, z, useShader);
 }
 void Shader::SetVector3f(const char* name, const glm::vec3& value, bool useShader)
 {
@@ -160,11 +191,21 @@ void Shader::SetVector3f(const char* name, const glm::vec3& value, bool useShade
         this->Use();
     glUniform3f(glGetUniformLocation(this->ID, name), value.x, value.y, value.z);
 }
+
+void Shader::SetVector3f(const std::string& name, const glm::vec3& value, bool useShader)
+{
+    SetVector3f(name.c_str(), value, useShader);
+}
 void Shader::SetVector4f(const char* name, float x, float y, float z, float w, bool useShader)
 {
     if (useShader)
         this->Use();
     glUniform4f(glGetUniformLocation(this->ID, name), x, y, z, w);
+}
+
+void Shader::SetVector4f(const std::string& name, float x, float y, float z, float w, bool useShader)
+{
+    SetVector4f(name.c_str(), x, y, z, w, useShader);
 }
 void Shader::SetVector4f(const char* name, const glm::vec4& value, bool useShader)
 {
@@ -172,11 +213,21 @@ void Shader::SetVector4f(const char* name, const glm::vec4& value, bool useShade
         this->Use();
     glUniform4f(glGetUniformLocation(this->ID, name), value.x, value.y, value.z, value.w);
 }
+
+void Shader::SetVector4f(const std::string& name, const glm::vec4& value, bool useShader)
+{
+    SetVector4f(name.c_str(), value, useShader);
+}
 void Shader::SetMatrix4(const char* name, const glm::mat4& matrix, bool useShader)
 {
     if (useShader)
         this->Use();
     glUniformMatrix4fv(glGetUniformLocation(this->ID, name), 1, false, glm::value_ptr(matrix));
+}
+
+void Shader::SetMatrix4(const std::string& name, const glm::mat4& matrix, bool useShader)
+{
+    SetMatrix4(name.c_str(), matrix, useShader);
 }
 
 

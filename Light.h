@@ -46,6 +46,6 @@ public:
 	void SetSpecular(const glm::vec3& spec);
 	virtual void SetPosition(const glm::vec3& pos);
 	virtual void SetDirection(const glm::vec3& dir);
-	virtual void ApplyLight(Shader& shader) const = 0;   // Pure virtual function to apply light properties to the shader
+	virtual void ApplyLight(Shader& shader, int index) const = 0;   // Pure virtual function to apply light properties to the shader
 };
 

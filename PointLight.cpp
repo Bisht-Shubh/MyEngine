@@ -1,6 +1,9 @@
 #include "pch.h"
 #include "PointLight.h"
 
+#include <iostream>
+#include <string>
+
 PointLight::PointLight(EntityID entityID)
     : Light(entityID)
 {
@@ -29,14 +32,18 @@ void PointLight::SetIntensity(float intensity)
     this->intensity = intensity;
 }
 
-void PointLight::ApplyLight(Shader& shader) const
+void PointLight::ApplyLight(Shader& shader, int index) const
 {
-	shader.SetVector3f("pointLight.position", pos);
-	shader.SetVector3f("pointLight.ambient", ambient);
-	shader.SetVector3f("pointLight.diffuse", diffuse);
-	shader.SetVector3f("pointLight.specular", specular);
-	shader.SetFloat("pointLight.intensity", intensity);
-	shader.SetFloat("pointLight.constant", 1.0f);
-	shader.SetFloat("pointLight.linear", 0.09f);
-	shader.SetFloat("pointLight.quadratic", 0.032f);
+    const std::string prefix =
+        "pointLights[" + std::to_string(index) + "].";
+
+    shader.SetVector3f(prefix + "position", pos);
+    shader.SetVector3f(prefix + "ambient", ambient);
+    shader.SetVector3f(prefix + "diffuse", diffuse);
+    shader.SetVector3f(prefix + "specular", specular);
+
+    shader.SetFloat(prefix + "intensity", intensity);
+    shader.SetFloat(prefix + "constant", 1.0f);
+    shader.SetFloat(prefix + "linear", 0.09f);
+    shader.SetFloat(prefix + "quadratic", 0.032f);
 }

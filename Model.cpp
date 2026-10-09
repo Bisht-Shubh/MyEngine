@@ -97,6 +97,10 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
     // 1. diffuse maps
     std::vector<Texture_Mesh> diffuseMaps = loadMaterialTextures(material, aiTextureType_DIFFUSE, "texture_diffuse");
+	std::cout << "\nDEBUG::MESSAGE::Diffuse textures found: " << diffuseMaps.size() << std::endl;
+	for (const auto& tex : diffuseMaps) {
+		std::cout << "DEBUG::MESSAGE::Diffuse texture path: " << tex.path << std::endl;
+	}
     textures.insert(textures.end(), diffuseMaps.begin(), diffuseMaps.end());
     // 2. specular maps
     std::vector<Texture_Mesh> specularMaps = loadMaterialTextures(material, aiTextureType_SPECULAR, "texture_specular");

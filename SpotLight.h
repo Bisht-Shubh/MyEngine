@@ -19,12 +19,12 @@ public:
 
 	virtual void SetPosition(const glm::vec3& pos);
 	virtual void SetDirection(const glm::vec3& dir);
-	virtual void ApplyLight(Shader& shader) const override;
+	virtual void ApplyLight(Shader& shader, int index) const override;
 
 private:
-	float innerAngle{ 35.5f };			// degrees
-	float outerAngle{ 50.5f };			// degrees
-	glm::vec3 position{0.0f, 12.0f, 0.0f};
+	float innerAngle{ 32.5f };			
+	float outerAngle{ 45.5f };			
+	glm::vec3 position{0.0f, 15.0f, 0.0f};
 	glm::vec3 direction{0.0f, -1.0f, 0.0f};
 	float constant{ 1.0f };
 	float linear{ 0.09f };

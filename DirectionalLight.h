@@ -14,6 +14,7 @@ class DirectionalLight : public Light
 {
 private:
 	// General directional light properties
+	float m_intensity{ 0.3f };  
 	
 
 public:
@@ -25,6 +26,6 @@ public:
 	void SetDirection(float x, float y, float z);
 
 	// Apply directional light properties to the shader
-	void ApplyLight(Shader& shader) const override;
+	void ApplyLight(Shader& shader, int index) const override;
 };
 

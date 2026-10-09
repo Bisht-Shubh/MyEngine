@@ -65,18 +65,34 @@ void Game::CreateLevel()
     if (!m_currentScene)
         return;
 
-    Entity car = m_currentScene->CreateEntity("Car");
+    Entity bookStand = m_currentScene->CreateEntity("BookStand");
 
-    MeshRenderer* meshRenderer = car.AddComponent<MeshRenderer>();
+    MeshRenderer* meshRenderer = bookStand.AddComponent<MeshRenderer>();
 
-    Model* carModel = new Model("Assets/Models/Low Poly Car.obj");
-    meshRenderer->SetModel(carModel);
+    Model* bookStandModel = new Model("Assets/Models/Stand/scene.gltf");
+    meshRenderer->SetModel(bookStandModel);
 
-    Material* carMaterial = new Material(&ResourceManager::GetShader("SpotLight"));
-    meshRenderer->SetMaterial(carMaterial);
+	Shader* shader = &ResourceManager::GetShader("SpotLight");
 
-    Transform* carTransform = car.AddComponent<Transform>();
-    carTransform->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
+    Material* defaultMaterial = new Material(shader);
+    meshRenderer->SetMaterial(defaultMaterial);
 
-    car.AddComponent<SpotLight>();
+    Transform* bookStandTransform = bookStand.AddComponent<Transform>();
+    bookStandTransform->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
+
+	SpotLight* spotLight1 = bookStand.AddComponent<SpotLight>();
+	spotLight1->SetPosition(glm::vec3(0.0f, 15.0f, 0.0f));
+
+	Entity car = m_currentScene->CreateEntity("Car");
+	MeshRenderer* carMeshRenderer = car.AddComponent<MeshRenderer>();
+
+	Model* carModel = new Model("Assets/Models/Low Poly Car.obj");
+	carMeshRenderer->SetModel(carModel);
+	carMeshRenderer->SetMaterial(defaultMaterial);
+    
+	Transform* carTransform = car.AddComponent<Transform>();
+	carTransform->SetPosition(glm::vec3(-15.0f, 0.0f, 5.0f));
+
+	SpotLight* spotLight2 = car.AddComponent<SpotLight>();
+	spotLight2->SetPosition(glm::vec3(0.0f, 15.0f, 0.0f));
 }

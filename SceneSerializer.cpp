@@ -5,23 +5,44 @@
 #include "Entity.h"
 #include "Transform.h"
 
+#include <string>
+
 #include <fstream>
 
 bool SceneSerializer::Serialize(Scene& scene, const std::string& filePath)
 {
     json sceneData;
 
-    Entity car = scene.GetEntityManager().FindEntity("Car");
+    //Entity car = scene.GetEntityManager().FindEntity("Car");
 
-    Transform* transform = car.GetComponent<Transform>();
+    //Transform* transform = car.GetComponent<Transform>();
 
-    if (transform)
+    //if (transform)
+    //{
+    //    sceneData["entities"]["Car"]["transform"] =
+    //        transform->Serialize();
+    //}
+
+    //return Save(sceneData, filePath);
+
+	const auto& entities = scene.GetEntityManager().GetAllEntities();
+
+    for(const EntityData& entityData : entities)
     {
-        sceneData["entities"]["Car"]["transform"] =
-            transform->Serialize();
+		// Process each entity and its components
+		Entity entity = scene.GetEntityManager().GetEntity(entityData.id);
+
+		json& entityJson = sceneData["entities"][std::to_string(entityData.id)];
+		entityJson["name"] = entityData.name;
+
+		// Serialize Transform component if it exists
+		Transform* transform = entity.GetComponent<Transform>();
+
+		if (transform)
+			entityJson["transform"] = transform->Serialize();
     }
 
-    return Save(sceneData, filePath);
+	return Save(sceneData, filePath);
 }
 
 bool SceneSerializer::Deserialize(Scene& scene, const std::string& filePath)
@@ -31,18 +52,46 @@ bool SceneSerializer::Deserialize(Scene& scene, const std::string& filePath)
     if (!Load(sceneData, filePath))
         return false;
 
-    Entity car = scene.GetEntityManager().FindEntity("Car");
+	if (!sceneData.contains("entities"))
+		return false;
 
-    Transform* transform = car.GetComponent<Transform>();
+	const auto& entities = sceneData["entities"];
 
-    if (!transform)
-        return false;
+    for (auto it = entities.begin(); it != entities.end(); ++it)
+    {
+		EntityID id = static_cast<EntityID>(std::stoul(it.key()));
 
-    const auto& transformData = sceneData.at("entities").at("Car").at("transform");
+		if (!scene.GetEntityManager().Exists(id))
+		{
+			std::cerr << "/nDEBUG::ERROR::Entity with ID " << id << " does not exist in the scene." << std::endl;
+			continue;
+		}
 
-    transform->Deserialize(transformData);
+		Entity entity = scene.GetEntityManager().GetEntity(id);
 
-    return true;
+		if (!it.value().contains("transform"))
+			continue;
+
+		Transform* transform = entity.GetComponent<Transform>();
+
+        if(transform)
+			transform->Deserialize(it.value()["transform"]);
+    }
+
+	return true;
+
+    //Entity car = scene.GetEntityManager().FindEntity("Car");
+
+    //Transform* transform = car.GetComponent<Transform>();
+
+    //if (!transform)
+    //    return false;
+
+    //const auto& transformData = sceneData.at("entities").at("Car").at("transform");
+
+    //transform->Deserialize(transformData);
+
+    //return true;
 }
 
 bool SceneSerializer::Save(const json& data, const std::string& filePath)
