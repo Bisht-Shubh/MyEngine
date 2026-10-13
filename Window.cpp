@@ -33,6 +33,8 @@ void Window::InitWindow()
 	glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);	
 	glfwSetKeyCallback(m_window, key_callback);
 	glfwSetCursorPosCallback(this->m_window, mouseCallBack);
+	glfwSetMouseButtonCallback(this->m_window, mouseButtonCallback);
+
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
 		std::cout << "DEBUG::ERROR::Failed to initialize GLAD" << std::endl;
@@ -96,4 +98,12 @@ void Window::mouseCallBack(GLFWwindow* glfwWindow, double xPos, double yPos)
 	Window* self = static_cast<Window*>(glfwGetWindowUserPointer(glfwWindow));
 
 	self->m_input.OnMouseMove(xPos, yPos);
+}
+
+void Window::mouseButtonCallback(GLFWwindow* glfwWindow, int button, int action, int mods)
+{
+	auto* self = static_cast<Window*>(glfwGetWindowUserPointer(glfwWindow));
+
+	if(self)
+		self->m_input.OnMouseButtonPressed(button, action);
 }

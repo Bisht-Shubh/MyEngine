@@ -162,6 +162,26 @@ void Model::Draw(Shader& shader)
         meshes[i].draw(shader);
 }
 
+BoundingBox Model::GetLocalBounds() const
+{
+    const float maxFloat = std::numeric_limits<float>::max();
+
+    BoundingBox bounds{
+        glm::vec3(maxFloat),
+        glm::vec3(std::numeric_limits<float>::lowest())
+    };
+
+    for (const Mesh& mesh : meshes)
+    {
+        const BoundingBox meshBounds = mesh.GetLocalBounds();
+
+        bounds.min = glm::min(bounds.min, meshBounds.min);
+        bounds.max = glm::max(bounds.max, meshBounds.max);
+    }
+
+    return bounds;
+}
+
 unsigned int TextureFromFile(const char* path, const std::string& directory, bool gamma)
 {
     std::string filename = std::string(path);

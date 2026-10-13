@@ -29,5 +29,7 @@ public:
 		loadModel(path);
 	}
 	void Draw(Shader& shader);
+
+	BoundingBox GetLocalBounds() const;
 };
 

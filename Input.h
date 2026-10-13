@@ -12,6 +12,9 @@ public:
 	bool IsKeyReleased(int key);
 
 	void OnMouseMove(double xpos, double ypos);
+	void OnMouseButtonPressed(int button, int action);
+
+	bool IsMouseButtonPressed(int button) const;
 
 	float GetMouseXOffset() const;
 	float GetMouseYOffset() const;
@@ -29,6 +32,7 @@ private:
 	double m_lastY{ 0.0f };
 	
 	bool m_firstMouse{ true };
+	bool m_mouseButtons[8] {};
 
 	float m_MouseXOffset{ 0.0f };
 	float m_MouseYOffset{ 0.0f };

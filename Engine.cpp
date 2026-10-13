@@ -8,20 +8,9 @@
 
 void PrintShaderList();
 
-Engine::Engine(
-    Input& input,
-    imGuiLayer& imguiLayer
-)
-    : m_input(input),
-    m_debugLayer(),
-    m_game(input),
-    m_editorLayer(
-        m_game,
-        m_input,
-        m_debugLayer,
-        imguiLayer
-    ),
-	m_imguiLayer(imguiLayer)
+Engine::Engine(Input& input, imGuiLayer& imguiLayer)
+                        : m_input(input), m_debugLayer(), m_game(input), m_editorLayer(m_game, m_input, m_debugLayer, imguiLayer),
+                                    m_imguiLayer(imguiLayer)
 {
 }
 
@@ -38,24 +27,11 @@ void Engine::LoadResources()
 {
     auto start = std::chrono::high_resolution_clock::now();
 
-    ResourceManager::LoadShader(
-        "Shader Files/SpotLight_vs.txt",
-        "Shader Files/SpotLight_fs.txt",
-        nullptr,
-        "SpotLight"
-    );
+    ResourceManager::LoadShader("Shader Files/SpotLight_vs.txt", "Shader Files/SpotLight_fs.txt", nullptr, "SpotLight");
 
-    auto end =
-        std::chrono::high_resolution_clock::now();
-
-    auto duration =
-        std::chrono::duration<float, std::milli>(
-            end - start
-        );
-
-    m_debugLayer.SetShaderLoadTime(
-        static_cast<int>(duration.count())
-    );
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration<float, std::milli>(end - start);
+    m_debugLayer.SetShaderLoadTime(static_cast<int>(duration.count()));
 
     PrintShaderList();
 }
@@ -65,19 +41,15 @@ void Engine::Update(float deltaTime)
     m_editorLayer.CheckInput();
 
     if (m_editorLayer.IsEditorMode())
-    {
         m_editorLayer.Update(deltaTime);
-    }
+
     else
-    {
         m_game.Update(deltaTime);
-    }
 }
 
 void Engine::Render()
 {
-    Scene* scene =
-        m_game.GetCurrentScene();
+    Scene* scene = m_game.GetCurrentScene();
 
    if(scene)
 	   m_renderer.Render(*scene);
@@ -104,8 +76,7 @@ void PrintShaderList()
 
     ss << "\n--------------------------------------------\n";
 
-    for (const auto& [name, shader]
-        : ResourceManager::Shaders)
+    for (const auto& [name, shader] : ResourceManager::Shaders)
     {
         ss << name << "\n";
     }

@@ -27,7 +27,7 @@ void Game::Init()
     auto [it, inserted] = m_scenes.emplace("DefaultScene", std::move(scene));
 
     m_currentScene = it->second.get();
-
+    
     CreateLevel();
 
 	SceneSerializer::Deserialize(*m_currentScene, "Scene.json");
@@ -48,7 +48,6 @@ void Game::LoadScene(const std::string& sceneName)
     if (it == m_scenes.end())
     {
         std::cerr << "Scene not found: " << sceneName << std::endl;
-
         return;
     }
 
@@ -83,10 +82,10 @@ void Game::CreateLevel()
 	SpotLight* spotLight1 = bookStand.AddComponent<SpotLight>();
 	spotLight1->SetPosition(glm::vec3(0.0f, 15.0f, 0.0f));
 
-	Entity car = m_currentScene->CreateEntity("Car");
+	Entity car = m_currentScene->CreateEntity("Box");
 	MeshRenderer* carMeshRenderer = car.AddComponent<MeshRenderer>();
 
-	Model* carModel = new Model("Assets/Models/Low Poly Car.obj");
+	Model* carModel = new Model("Assets/Models/box/scene.gltf");
 	carMeshRenderer->SetModel(carModel);
 	carMeshRenderer->SetMaterial(defaultMaterial);
     

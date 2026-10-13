@@ -181,6 +181,12 @@
     <ClInclude Include="SceneSerializer.h">
       <Filter>Header Files\Serialization</Filter>
     </ClInclude>
+    <ClInclude Include="RayCaster.h">
+      <Filter>Header Files\Input and Window</Filter>
+    </ClInclude>
+    <ClInclude Include="BoundingBox.h">
+      <Filter>Header Files\Meshes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MeshRenderer.cpp">
@@ -302,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="SceneSerializer.cpp">
       <Filter>Source Files\Serializer</Filter>
+    </ClCompile>
+    <ClCompile Include="RayCaster.cpp">
+      <Filter>Source Files\Input and Window</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

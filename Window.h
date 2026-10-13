@@ -54,5 +54,6 @@ private:
 	static void key_callback(GLFWwindow* glfwWindow, int key, int scancode, int action, int mode);
 
 	static void mouseCallBack(GLFWwindow* glfwWindow, double xPos, double yPos);
+	static void mouseButtonCallback(GLFWwindow* glfwWindow, int button, int action, int mods);
 };
 

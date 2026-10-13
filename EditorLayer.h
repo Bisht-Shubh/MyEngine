@@ -1,5 +1,7 @@
 #pragma once
 
+#include <optional>
+
 class Game;
 class DebugLayer;
 class imGuiLayer;
@@ -37,6 +39,7 @@ private:
     Input& m_input;
     DebugLayer& m_debugLayer;
     imGuiLayer& m_imguiLayer;
+    std::optional<unsigned int> m_selectedEntityID;
 
     Mode m_mode{ Mode::Editor };
 };

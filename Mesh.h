@@ -9,6 +9,8 @@
 #include<string>
 #include<vector>
 
+#include "BoundingBox.h"
+
 struct Vertex {
 	glm::vec3 Position;
 	glm::vec3 Normal;
@@ -28,12 +30,17 @@ private:
 	int m_vertexCount, m_indexCount;
 	void setupMesh();
 
+	BoundingBox m_LocalBounds;
+	void CalculateBounds();
+
 public:
 	unsigned int VAO;
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 	std::vector<Texture_Mesh> textures;
 	glm::vec3 color; // per-mesh material color (used when no texture)
+
+	BoundingBox GetLocalBounds() const;
 
 	Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture_Mesh> textures, const glm::vec3& color);
 	void draw(Shader& shader);

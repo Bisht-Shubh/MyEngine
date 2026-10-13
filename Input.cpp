@@ -35,6 +35,22 @@ void Input::OnMouseMove(double xpos, double ypos)
 	m_lastY = ypos;
 }
 
+void Input::OnMouseButtonPressed(int button, int action)
+{
+	if(button < 0 || button >= 8)
+		return;
+
+	if (action == GLFW_PRESS)
+		m_mouseButtons[button] = true;
+	else if (action == GLFW_RELEASE)
+		m_mouseButtons[button] = false;
+}
+
+bool Input::IsMouseButtonPressed(int button) const
+{
+	return (button >= 0 && button < 8) ? m_mouseButtons[button] : false;
+}
+
 float Input::GetMouseXOffset() const
 {
 	return m_MouseXOffset;

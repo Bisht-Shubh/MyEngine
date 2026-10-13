@@ -29,6 +29,29 @@ void Mesh::setupMesh()
     glBindVertexArray(0);
 }
 
+void Mesh::CalculateBounds()
+{
+    const float maxFloat = std::numeric_limits<float>::max();
+
+    m_LocalBounds.min = glm::vec3(maxFloat);
+    m_LocalBounds.max = glm::vec3(
+        std::numeric_limits<float>::lowest());
+
+    for (const Vertex& vertex : vertices)
+    {
+        m_LocalBounds.min =
+            glm::min(m_LocalBounds.min, vertex.Position);
+
+        m_LocalBounds.max =
+            glm::max(m_LocalBounds.max, vertex.Position);
+    }
+}
+
+BoundingBox Mesh::GetLocalBounds() const
+{
+    return m_LocalBounds;   
+}
+
 Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std::vector<Texture_Mesh> textures, const glm::vec3& color)
 {
     this->vertices = vertices;
@@ -36,6 +59,7 @@ Mesh::Mesh(std::vector<Vertex> vertices, std::vector<unsigned int> indices, std:
     this->textures = textures;
 
     this->color = color;
+    CalculateBounds();
     setupMesh();
 }
 
