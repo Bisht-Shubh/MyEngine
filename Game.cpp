@@ -11,6 +11,9 @@
 #include "ResourceManager.h"
 #include "SceneSerializer.h"
 
+#include <limits>
+#include <glm/common.hpp>
+
 Game::Game(Input& input)
     : m_input(input)
 {
@@ -20,7 +23,7 @@ Game::~Game() = default;
 
 void Game::Init()
 {
-    auto scene = std::make_unique<Scene>(1400, 1200, m_input);
+    auto scene = std::make_unique<Scene>(2260, 1440, m_input);
 
     scene->Init();
 
@@ -37,6 +40,34 @@ void Game::Update(float deltaTime)
 {
     if (!m_currentScene)
         return;
+
+
+    float boundry = 5.0f;
+    float speed = 1.0f * deltaTime;
+    float rotationSpeed = 40.0f * deltaTime;
+
+    for(const EntityData& data : m_currentScene->GetEntityManager().GetAllEntities())
+    {
+        glm::vec3& direction = m_directions.at(data.id);
+
+        Entity entity = m_currentScene->GetEntityManager().GetEntity(data.id);
+        Transform* transform = entity.GetComponent<Transform>();
+
+        if (!transform)
+            continue;
+
+        if (transform->GetPosition().x >= boundry || transform->GetPosition().x <= -boundry)
+            direction.x *= -1.0f;
+
+        if (transform->GetPosition().y >= boundry || transform->GetPosition().y <= -boundry)
+            direction.y *= -1.0f;
+
+        if (transform->GetPosition().z >= boundry || transform->GetPosition().z <= -boundry)
+            direction.z *= -1.0f;
+
+        transform->Translate(direction.x * speed, direction.y * speed, direction.z * speed);
+        transform->Rotate(rotationSpeed * 1.2f * direction.y, rotationSpeed * 0.2f * direction.z , rotationSpeed * 0.7f * direction.x);
+    }
 
     m_currentScene->Update(deltaTime);
 }
@@ -64,34 +95,26 @@ void Game::CreateLevel()
     if (!m_currentScene)
         return;
 
-    Entity bookStand = m_currentScene->CreateEntity("BookStand");
-
-    MeshRenderer* meshRenderer = bookStand.AddComponent<MeshRenderer>();
-
-    Model* bookStandModel = new Model("Assets/Models/Stand/scene.gltf");
-    meshRenderer->SetModel(bookStandModel);
-
-	Shader* shader = &ResourceManager::GetShader("SpotLight");
+    Shader* shader = &ResourceManager::GetShader("SpotLight");
 
     Material* defaultMaterial = new Material(shader);
-    meshRenderer->SetMaterial(defaultMaterial);
 
-    Transform* bookStandTransform = bookStand.AddComponent<Transform>();
-    bookStandTransform->SetPosition(glm::vec3(0.0f, 0.0f, -5.0f));
 
-	SpotLight* spotLight1 = bookStand.AddComponent<SpotLight>();
-	spotLight1->SetPosition(glm::vec3(0.0f, 15.0f, 0.0f));
+    Model* molModel = new Model("Assets/Models/Water Molecule/Water Molecule.obj");
 
-	Entity car = m_currentScene->CreateEntity("Box");
-	MeshRenderer* carMeshRenderer = car.AddComponent<MeshRenderer>();
+    for (int i = 0; i < 20; i++)
+    {
+        Entity water = m_currentScene->CreateEntity("water");
+        MeshRenderer* meshRenderer = water.AddComponent<MeshRenderer>();
+        meshRenderer->SetModel(molModel);
+        meshRenderer->SetMaterial(defaultMaterial);
+        Transform* molTransform = water.AddComponent<Transform>();
+        molTransform->SetPosition(glm::vec3((1.2 * i), 0.0f, -2.0f * i));
 
-	Model* carModel = new Model("Assets/Models/box/scene.gltf");
-	carMeshRenderer->SetModel(carModel);
-	carMeshRenderer->SetMaterial(defaultMaterial);
-    
-	Transform* carTransform = car.AddComponent<Transform>();
-	carTransform->SetPosition(glm::vec3(-15.0f, 0.0f, 5.0f));
+        SpotLight* spotLight1 = water.AddComponent<SpotLight>();
+        spotLight1->SetPosition(glm::vec3(0.0f, 25.0f, 0.0f));
+        m_directions[water.GetID()] = glm::vec3(1+(0.3f * i), 1 + (- 0.7f * i), 1+( 1.4 * i));
+    }
 
-	SpotLight* spotLight2 = car.AddComponent<SpotLight>();
-	spotLight2->SetPosition(glm::vec3(0.0f, 15.0f, 0.0f));
+
 }

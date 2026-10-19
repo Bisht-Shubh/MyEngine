@@ -175,8 +175,8 @@ BoundingBox Model::GetLocalBounds() const
     {
         const BoundingBox meshBounds = mesh.GetLocalBounds();
 
-        bounds.min = glm::min(bounds.min, meshBounds.min);
-        bounds.max = glm::max(bounds.max, meshBounds.max);
+        bounds.minPoint = glm::min(bounds.minPoint, meshBounds.minPoint);
+        bounds.maxPoint = glm::max(bounds.maxPoint, meshBounds.maxPoint);
     }
 
     return bounds;

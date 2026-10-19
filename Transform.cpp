@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Transform.h"
+#include <cmath>
 
 Transform::Transform()
 	: Component(INVALID_ENTITY), m_Position(0.0f), m_Rotation(0.0f), m_Scale(1.0f)
@@ -12,6 +13,7 @@ void Transform::SetPosition(const glm::vec3 & position)
 		return;						// do not update if the position is the same
 
 	m_Position = position;
+
 	m_Dirty = true;
 }
 
@@ -19,6 +21,7 @@ void Transform::SetPosition(const glm::vec3 & position)
 void Transform::Translate(float x, float y, float z)
 {
 	m_Position += glm::vec3(x, y, z);
+
 	m_Dirty = true;
 }
 
@@ -34,6 +37,11 @@ void Transform::SetRotation(const glm::vec3& rotation)
 void Transform::Rotate(float x, float y, float z)
 {
 	m_Rotation += glm::vec3(x, y, z);
+
+	// Prevent rotations to overexceed in Update
+
+	m_Rotation = glm::vec3(std::fmod(m_Rotation.x, 360.0f), std::fmod(m_Rotation.y, 360.0f), std::fmod(m_Rotation.z, 360.0f));
+
 	m_Dirty = true;
 }
 
@@ -65,6 +73,16 @@ const glm::vec3& Transform::GetRotation() const
 const glm::vec3& Transform::GetScale() const
 {
 	return m_Scale;
+}
+
+glm::mat4 Transform::GetPreviousModelMatrix() const
+{
+	return m_previousModelMatrix;
+}
+
+void Transform::CommitPreviousTransform()
+{
+	m_previousModelMatrix = GetModelMatrix();
 }
 
 void Transform::Reset()

@@ -31,6 +31,10 @@ public:
 	const glm::vec3& GetRotation() const;
 	const glm::vec3& GetScale() const;
 
+	//Motion blur effect
+	glm::mat4 GetPreviousModelMatrix() const;
+	void CommitPreviousTransform();
+
 	glm::vec3 Forward() const;
 	glm::vec3 Right() const;
 	glm::vec3 Up() const;
@@ -50,6 +54,7 @@ private:
 	glm::vec3 m_Rotation;
 	glm::vec3 m_Scale;
 
+	glm::mat4 m_previousModelMatrix{ 1.0f };
 	mutable glm::mat4 m_ModelMatrix{ 1.0f };
 	mutable bool m_Dirty{ true };
 };

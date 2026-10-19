@@ -4,8 +4,8 @@
 Application::Application()
     : m_input(),
     m_window(
-        1400,
-        1200,
+        2260,
+        1440,
         m_input
     ),
     m_imguiLayer(),

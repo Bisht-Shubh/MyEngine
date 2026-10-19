@@ -111,7 +111,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(SolutionDir)Third Party\assimp\build\include;$(SolutionDir)Third Party\assimp\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include;$(SolutionDir)Third Party\imgui\imgui-master\backends;$(SolutionDir)Third Party\imgui\imgui-master;$(SolutionDir);$(SolutionDir)/Third Party/Json</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)Third Party\assimp\build\include;$(SolutionDir)Third Party\assimp\include;$(SolutionDir)Third Party\glm;$(SolutionDir)Third Party\GLFW\Include;$(SolutionDir)Third Party\glad\include;$(SolutionDir)Third Party\imgui\imgui-master\backends;$(SolutionDir)Third Party\imgui\imgui-master;$(SolutionDir);$(SolutionDir)/Third Party/Json;$(ProjectDir)Third Party\assimp1\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

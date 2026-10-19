@@ -96,7 +96,7 @@ void EditorLayer::Update(float deltaTime)
             glm::mat4 modelMatrix = transform->GetModelMatrix();
             BoundingBox worldBounds = TransformBoundingBox(localBounds, modelMatrix);
 
-            if (RayCaster::IntersectsAABB(ray, worldBounds.min, worldBounds.max, distance) && distance < closestDistance)
+            if (RayCaster::IntersectsAABB(ray, worldBounds.minPoint, worldBounds.maxPoint, distance) && distance < closestDistance)
             {
                 closestDistance = distance;
                 closestEntityID = data.id;

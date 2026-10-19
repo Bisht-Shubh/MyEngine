@@ -89,6 +89,10 @@ void Renderer::Render(Scene& scene)
         shader->SetMatrix4(
             "model", transform->GetModelMatrix());
 
+        // Motion blur
+        // Adding previous model uniforms to positions
+        shader->SetMatrix4("previousModel", transform->GetPreviousModelMatrix());
+
         shader->SetMatrix4(
             "view", camera.GetView());
 
@@ -97,4 +101,14 @@ void Renderer::Render(Scene& scene)
 
         model->Draw(*shader);
     }
+
+    //-------------------TODO-------------------//
+    // PASS 3 : Velocity Pass : Motion Blur
+    //for (const EntityData& data : entityManager.GetAllEntities())
+    //{
+    //    Entity entity = entityManager.GetEntity(data.id);
+
+    //    if (auto* transform = entity.GetComponent<Transform>())
+    //        transform->CommitPreviousTransform();
+    //}
 }

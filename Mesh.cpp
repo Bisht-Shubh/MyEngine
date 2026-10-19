@@ -33,17 +33,17 @@ void Mesh::CalculateBounds()
 {
     const float maxFloat = std::numeric_limits<float>::max();
 
-    m_LocalBounds.min = glm::vec3(maxFloat);
-    m_LocalBounds.max = glm::vec3(
+    m_LocalBounds.minPoint = glm::vec3(maxFloat);
+    m_LocalBounds.maxPoint = glm::vec3(
         std::numeric_limits<float>::lowest());
 
     for (const Vertex& vertex : vertices)
     {
-        m_LocalBounds.min =
-            glm::min(m_LocalBounds.min, vertex.Position);
+        m_LocalBounds.minPoint =
+            glm::min(m_LocalBounds.minPoint, vertex.Position);
 
-        m_LocalBounds.max =
-            glm::max(m_LocalBounds.max, vertex.Position);
+        m_LocalBounds.maxPoint =
+            glm::max(m_LocalBounds.maxPoint, vertex.Position);
     }
 }
 

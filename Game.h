@@ -3,6 +3,7 @@
 #include <memory>
 #include <unordered_map>
 #include <string>
+#include <glm/glm.hpp>
 
 class Input;
 class Scene;
@@ -36,6 +37,8 @@ private:
         std::string,
         std::unique_ptr<Scene>
     > m_scenes;
+
+    std::unordered_map<unsigned int, glm::vec3> m_directions;
 
     Scene* m_currentScene{ nullptr };
 };
