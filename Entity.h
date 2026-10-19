@@ -33,5 +33,6 @@ public:
 	T* GetComponent();
 
 	void RemoveComponent(Component* component);
+	void Clone(EntityID sourceID, EntityID newId);
 };
 

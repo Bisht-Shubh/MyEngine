@@ -139,6 +139,12 @@ void EditorLayer::Update(float deltaTime)
             if (ImGui::DragFloat3("Scale", &scale.x, 0.1f))
                 transform->SetScale(scale);
 
+            // duplicate the selected entity
+            if (ImGui::Button("Duplicate Entity"))
+            {
+                scene->GetEntityManager().DuplicateEntity(*m_selectedEntityID);
+            }
+
             ImGui::End();
         }
     }

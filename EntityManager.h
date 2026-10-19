@@ -29,6 +29,8 @@ public:
 	bool Exists(EntityID id) const;
 	const std::vector<EntityData>& GetAllEntities() const;
 
+	void DuplicateEntity(EntityID sourceID);
+		
 private:
 	Scene* m_scene = nullptr;
 	EntityID m_nextID = 1;

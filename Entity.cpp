@@ -31,3 +31,46 @@ void Entity::RemoveComponent(Component* component)
 	}
 	m_scene->GetComponentManager().DestroyComponent(component);
 }
+
+void Entity::Clone(EntityID sourceID, EntityID newID)
+{
+	// copy components of Entity with Id 1 to entity with Id 2
+	Entity sourceEntity = m_scene->GetEntityManager().GetEntity(sourceID);
+	Entity newEntity = m_scene->GetEntityManager().GetEntity(newID);
+
+    // MeshRenderer
+    if (MeshRenderer* sourceMesh = sourceEntity.GetComponent<MeshRenderer>())
+    {
+        MeshRenderer* newMesh = newEntity.AddComponent<MeshRenderer>();
+
+        if (!newMesh)
+            return;
+
+        newMesh->SetModel(sourceMesh->GetModel());
+        newMesh->SetMaterial(sourceMesh->GetMaterial());
+    }
+
+    // Transform
+    if (Transform* sourceTransform = sourceEntity.GetComponent<Transform>())
+    {
+        Transform* newTransform = newEntity.AddComponent<Transform>();
+
+        if (!newTransform)
+            return;
+
+        newTransform->SetPosition(sourceTransform->GetPosition());
+        newTransform->SetRotation(sourceTransform->GetRotation());
+        newTransform->SetScale(sourceTransform->GetScale());
+    }
+
+    // SpotLight
+    if (SpotLight* sourceSpotlight = sourceEntity.GetComponent<SpotLight>())
+    {
+        SpotLight* newSpotLight = newEntity.AddComponent<SpotLight>();
+
+        if (!newSpotLight)
+            return;
+
+        newSpotLight->SetPosition(sourceSpotlight->GetPosition());
+    }
+}

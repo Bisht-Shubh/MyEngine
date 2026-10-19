@@ -42,32 +42,32 @@ void Game::Update(float deltaTime)
         return;
 
 
-    float boundry = 5.0f;
-    float speed = 1.0f * deltaTime;
-    float rotationSpeed = 40.0f * deltaTime;
+    //float boundry = 5.0f;
+    //float speed = 1.0f * deltaTime;
+    //float rotationSpeed = 40.0f * deltaTime;
 
-    for(const EntityData& data : m_currentScene->GetEntityManager().GetAllEntities())
-    {
-        glm::vec3& direction = m_directions.at(data.id);
+    //for(const EntityData& data : m_currentScene->GetEntityManager().GetAllEntities())
+    //{
+    //    glm::vec3& direction = m_directions.at(data.id);
 
-        Entity entity = m_currentScene->GetEntityManager().GetEntity(data.id);
-        Transform* transform = entity.GetComponent<Transform>();
+    //    Entity entity = m_currentScene->GetEntityManager().GetEntity(data.id);
+    //    Transform* transform = entity.GetComponent<Transform>();
 
-        if (!transform)
-            continue;
+    //    if (!transform)
+    //        continue;
 
-        if (transform->GetPosition().x >= boundry || transform->GetPosition().x <= -boundry)
-            direction.x *= -1.0f;
+    //    if (transform->GetPosition().x >= boundry || transform->GetPosition().x <= -boundry)
+    //        direction.x *= -1.0f;
 
-        if (transform->GetPosition().y >= boundry || transform->GetPosition().y <= -boundry)
-            direction.y *= -1.0f;
+    //    if (transform->GetPosition().y >= boundry || transform->GetPosition().y <= -boundry)
+    //        direction.y *= -1.0f;
 
-        if (transform->GetPosition().z >= boundry || transform->GetPosition().z <= -boundry)
-            direction.z *= -1.0f;
+    //    if (transform->GetPosition().z >= boundry || transform->GetPosition().z <= -boundry)
+    //        direction.z *= -1.0f;
 
-        transform->Translate(direction.x * speed, direction.y * speed, direction.z * speed);
-        transform->Rotate(rotationSpeed * 1.2f * direction.y, rotationSpeed * 0.2f * direction.z , rotationSpeed * 0.7f * direction.x);
-    }
+    //    transform->Translate(direction.x * speed, direction.y * speed, direction.z * speed);
+    //    transform->Rotate(rotationSpeed * 1.2f * direction.y, rotationSpeed * 0.2f * direction.z , rotationSpeed * 0.7f * direction.x);
+    //}
 
     m_currentScene->Update(deltaTime);
 }
@@ -102,19 +102,15 @@ void Game::CreateLevel()
 
     Model* molModel = new Model("Assets/Models/Water Molecule/Water Molecule.obj");
 
-    for (int i = 0; i < 20; i++)
-    {
-        Entity water = m_currentScene->CreateEntity("water");
-        MeshRenderer* meshRenderer = water.AddComponent<MeshRenderer>();
-        meshRenderer->SetModel(molModel);
-        meshRenderer->SetMaterial(defaultMaterial);
-        Transform* molTransform = water.AddComponent<Transform>();
-        molTransform->SetPosition(glm::vec3((1.2 * i), 0.0f, -2.0f * i));
+    Entity water = m_currentScene->CreateEntity("water");
+    MeshRenderer* meshRenderer = water.AddComponent<MeshRenderer>();
+    meshRenderer->SetModel(molModel);
+    meshRenderer->SetMaterial(defaultMaterial);
+    Transform* molTransform = water.AddComponent<Transform>();
+    molTransform->SetPosition(glm::vec3((1.5), 0.0f, -2.0f ));
 
-        SpotLight* spotLight1 = water.AddComponent<SpotLight>();
-        spotLight1->SetPosition(glm::vec3(0.0f, 25.0f, 0.0f));
-        m_directions[water.GetID()] = glm::vec3(1+(0.3f * i), 1 + (- 0.7f * i), 1+( 1.4 * i));
-    }
+    SpotLight* spotLight1 = water.AddComponent<SpotLight>();
+    spotLight1->SetPosition(glm::vec3(0.0f, 15.0f, 0.0f));
 
 
 }

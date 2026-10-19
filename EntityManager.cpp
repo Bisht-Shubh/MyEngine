@@ -100,4 +100,13 @@ const std::vector<EntityData>& EntityManager::GetAllEntities() const
 	return m_entities;
 }
 
+void EntityManager::DuplicateEntity(EntityID sourceID)
+{
+	Entity newEntity = CreateEntity(GetEntity(sourceID).GetName());
+
+	Entity sourceEntity = GetEntity(sourceID);
+	
+	sourceEntity.Clone(sourceID, newEntity.GetID());
+}
+
 
