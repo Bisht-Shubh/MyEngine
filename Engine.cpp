@@ -40,10 +40,15 @@ void Engine::Update(float deltaTime)
 {
     m_editorLayer.CheckInput();
 
-    if (m_editorLayer.IsEditorMode())
-        m_editorLayer.Update(deltaTime);
+    //if (m_editorLayer.IsEditorMode())
+    //    m_editorLayer.Update(deltaTime);
 
-    else
+    //else
+    //    m_game.Update(deltaTime);
+
+    m_editorLayer.Update(deltaTime);
+
+    if(m_editorLayer.IsGameMode())
         m_game.Update(deltaTime);
 }
 
@@ -54,7 +59,7 @@ void Engine::Render()
    if(scene)
 	   m_renderer.Render(*scene);
 
-   if (m_editorLayer.IsEditorMode())
+   //if (m_editorLayer.IsEditorMode())
        m_imguiLayer.Render();
 }
 

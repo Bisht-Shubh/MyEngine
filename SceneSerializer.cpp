@@ -13,17 +13,6 @@ bool SceneSerializer::Serialize(Scene& scene, const std::string& filePath)
 {
     json sceneData;
 
-    //Entity car = scene.GetEntityManager().FindEntity("Car");
-
-    //Transform* transform = car.GetComponent<Transform>();
-
-    //if (transform)
-    //{
-    //    sceneData["entities"]["Car"]["transform"] =
-    //        transform->Serialize();
-    //}
-
-    //return Save(sceneData, filePath);
 
 	const auto& entities = scene.GetEntityManager().GetAllEntities();
 
@@ -72,26 +61,21 @@ bool SceneSerializer::Deserialize(Scene& scene, const std::string& filePath)
 		if (!it.value().contains("transform"))
 			continue;
 
+        // Enitity components
+        // Transform
 		Transform* transform = entity.GetComponent<Transform>();
 
         if(transform)
 			transform->Deserialize(it.value()["transform"]);
+
+        MeshRenderer* meshRenderer = entity.GetComponent<MeshRenderer>();
+
+        //if(meshRenderer)
+        //    meshRenderer->Deserializ
     }
 
 	return true;
 
-    //Entity car = scene.GetEntityManager().FindEntity("Car");
-
-    //Transform* transform = car.GetComponent<Transform>();
-
-    //if (!transform)
-    //    return false;
-
-    //const auto& transformData = sceneData.at("entities").at("Car").at("transform");
-
-    //transform->Deserialize(transformData);
-
-    //return true;
 }
 
 bool SceneSerializer::Save(const json& data, const std::string& filePath)

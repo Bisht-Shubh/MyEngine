@@ -6,7 +6,8 @@ void CameraController::Update(float deltaTime, Camera& camera, Input& input)
 	// Update camera rotation and movement based on input
 	if (!camera.IsCamDisabled())
 	{
-		camera.Rotate(input.GetMouseXOffset(), input.GetMouseYOffset());
+		if(input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
+			camera.Rotate(input.GetMouseXOffset(), input.GetMouseYOffset());
 
 		input.ResetMouseDelta();
 
@@ -44,7 +45,7 @@ void CameraController::Update(float deltaTime, Camera& camera, Input& input)
 	// disable camera movement when cam disabled (e.g. when in editor mode)
 	else if (camera.IsCamDisabled())
 	{
-		if(input.IsKeyPressed(GLFW_KEY_LEFT_CONTROL))
+		if(input.IsKeyPressed(GLFW_KEY_LEFT_SHIFT))
 			camera.Rotate(input.GetMouseXOffset(), input.GetMouseYOffset());
 
 		input.ResetMouseDelta();

@@ -42,4 +42,11 @@ private:
     std::optional<unsigned int> m_selectedEntityID;
 
     Mode m_mode{ Mode::Editor };
+
+    // Temporary
+    float m_temperature{ 0.0f };
+    float GetTemperature()
+    {
+        return m_temperature;
+    }
 };

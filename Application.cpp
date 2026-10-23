@@ -4,7 +4,7 @@
 Application::Application()
     : m_input(),
     m_window(
-        2260,
+        2560,
         1440,
         m_input
     ),

@@ -63,14 +63,14 @@ void Entity::Clone(EntityID sourceID, EntityID newID)
         newTransform->SetScale(sourceTransform->GetScale());
     }
 
-    // SpotLight
-    if (SpotLight* sourceSpotlight = sourceEntity.GetComponent<SpotLight>())
-    {
-        SpotLight* newSpotLight = newEntity.AddComponent<SpotLight>();
+     //SpotLight
+    //if (SpotLight* sourceSpotlight = sourceEntity.GetComponent<SpotLight>())
+    //{
+    //    SpotLight* newSpotLight = newEntity.AddComponent<SpotLight>();
 
-        if (!newSpotLight)
-            return;
+    //    if (!newSpotLight)
+    //        return;
 
-        newSpotLight->SetPosition(sourceSpotlight->GetPosition());
-    }
+    //    newSpotLight->SetPosition(sourceSpotlight->GetPosition());
+    //}
 }

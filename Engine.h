@@ -24,6 +24,10 @@ public:
     void Render();
 
     DebugLayer& GetDebugLayer();
+    EditorLayer& GetEditorLayer()
+    {
+        return m_editorLayer;
+    }
 
 private:
 

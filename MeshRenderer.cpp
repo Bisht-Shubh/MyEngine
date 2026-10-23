@@ -21,3 +21,9 @@ Material* MeshRenderer::GetMaterial() const
 {
     return m_material;
 }
+
+json MeshRenderer::Serialze() const
+{
+    return json();
+}
+
